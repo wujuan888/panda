@@ -1,0 +1,63 @@
+defaults: &defaults
+development:
+  <<: *defaults
+  aliyun_oss:
+    aliyun_access_id: "LTAICiTREf5L09Nq"
+    aliyun_access_key: "aWq8cHYlvERhOFS7qMcXPT59sPteqO"
+    aliyun_internal: false
+    aliyun_bucket: "screening"
+    aliyun_area: "cn-beijing"
+  sms:
+    user_name: "o102030oo"
+    password: "gowin120"
+  weixin:
+    states: 135
+    appid: "wxd0ea26597bd391a2"
+    secret: "eec85f2bee32d983e45d756c64218fc5"
+    key: "Gowin120gowin120gowin120gowin120"
+    mch_id: "1606685923"
+    wechat_notify_url: "https://test_screening.eyesee8.com/weixin_pay/wechat_notify.xml"
+  rabbitmq:
+    mq_connection: "amqp://deployer:Changeme_123@120.26.123.226:5672"
+  screening:
+    database: 'wuhou_screening_test'
+    username: 'root'
+    password: 'wj123456'
+  question:
+    url: "https://test_client.eyesee8.com"
+  yunlaba:
+    duanxin: 'aishi-w3vQhuxVKVPjiEpKiTdNXnRg'
+    yuyin: 'aishi-EaTLKurmkVHwCpf3EpqH-ivr'
+    shanxin: 'aishi-yeFCYPafc6pvdFzujywh-flash'
+  redis:
+    host: ''
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  aliyun_oss:
+    aliyun_access_id: "LTAICiTREf5L09Nq"
+    aliyun_access_key: "aWq8cHYlvERhOFS7qMcXPT59sPteqO"
+    aliyun_internal: false
+    aliyun_bucket: "screening"
+    aliyun_area: "cn-beijing"
+  sms:
+    user_name: "o102030oo"
+    password: "gowin120"
+  weixin:
+    appid: "wxd0ea26597bd391a2"
+    secret: "eec85f2bee32d983e45d756c64218fc5"
+  rabbitmq:
+    mq_connection: "amqp://deployer:Changeme_123@120.26.123.226:5672"
+  screening:
+    database: 'wuhou_screening_test'
+    username: 'root'
+    password: 'wj123456'
+  yunlaba:
+    duanxin: 'aishi-w3vQhuxVKVPjiEpKiTdNXnRg'
+    yuyin: 'aishi-EaTLKurmkVHwCpf3EpqH-ivr'
+    shanxin: 'aishi-yeFCYPafc6pvdFzujywh-flash'
+  redis:
+    host: ''

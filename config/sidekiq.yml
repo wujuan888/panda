@@ -1,0 +1,13 @@
+---
+:verbose: false
+:concurrency: 2
+:queues:
+  - [isee_high,2]
+  - [isee_middle,1]
+  - [isee_low,1]
+test:
+  :concurrency: 2
+development:
+  :concurrency: 2
+production:
+  :concurrency: 2
