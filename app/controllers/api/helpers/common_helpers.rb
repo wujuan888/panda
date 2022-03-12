@@ -29,7 +29,7 @@ module Api
           end
 
           def current_user
-            @current_user ||= Customer.find_by(uuid: params[:uuid])
+            @current_user ||= ::User.find_by(uuid: params[:uuid])
           end
 
           def auth_user

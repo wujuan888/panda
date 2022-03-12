@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: dormitory_records
+#
+#  id              :bigint           not null, primary key
+#  address(地址)   :string(20)
+#  name            :string(30)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  dormitory_id    :integer
+#  panda_id(地址)  :integer
+#  user_id(负责人) :integer
+#
+# Indexes
+#
+#  index_dormitory_records_on_dormitory_id  (dormitory_id)
+#  index_dormitory_records_on_panda_id      (panda_id)
+#
+require 'rails_helper'
+
+RSpec.describe DormitoryRecord, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
+end
