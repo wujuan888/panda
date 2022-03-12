@@ -10,7 +10,7 @@ development:
   sms:
     user_name: "o102030oo"
     password: "gowin120"
-  weixin:
+  wei_xin:
     states: 135
     appid: "wxd0ea26597bd391a2"
     secret: "eec85f2bee32d983e45d756c64218fc5"
@@ -30,7 +30,8 @@ development:
     yuyin: 'aishi-EaTLKurmkVHwCpf3EpqH-ivr'
     shanxin: 'aishi-yeFCYPafc6pvdFzujywh-flash'
   redis:
-    host: ''
+    url: '127.0.0.1'
+    password:
 
 test:
   <<: *defaults
@@ -60,4 +61,5 @@ production:
     yuyin: 'aishi-EaTLKurmkVHwCpf3EpqH-ivr'
     shanxin: 'aishi-yeFCYPafc6pvdFzujywh-flash'
   redis:
-    host: ''
+    url: '127.0.0.1'
+    password:

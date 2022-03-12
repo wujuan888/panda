@@ -2,9 +2,7 @@
 :verbose: false
 :concurrency: 2
 :queues:
-  - [isee_high,2]
-  - [isee_middle,1]
-  - [isee_low,1]
+  - panda_high
 test:
   :concurrency: 2
 development:

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 GrapeSwaggerRails.options.tap do |o|
-  o.app_name       = 'Outpatient'
+  o.app_name       = 'Panda'
   o.url            = '/api/doc/swagger'
   o.app_url        = ''
   o.api_auth       = 'basic'

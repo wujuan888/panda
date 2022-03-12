@@ -5,9 +5,9 @@ require 'mina/rvm'
 # require 'mina/unicorn'
 require 'mina_sidekiq/tasks'
 
-set :deploy_to, '/data/project/outpatient_system'
+set :deploy_to, '/data/project/panda'
 
-set :repository, 'git@git.eyesee8.com:eyesee/outpatient_system.git'
+set :repository, 'git@git.eyesee8.com:eyesee/panda.git'
 
 set :shared_paths, %w(config/database.yml config/yetting.yml log)
 # 设置git地址及分支
