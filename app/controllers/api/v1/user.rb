@@ -81,10 +81,13 @@ module Api
       desc '通过UUID获取用户基本信息'
       params do
         requires :uuid, type: String, desc: '请传入UUID'
+        requires :id, type: String, desc: '请传入ID'
       end
       get '/user/info' do
         auth_user
-        present user: (present current_user, with: Entities::Users::MaxUser), response: success_resp
+        user = ::User.find(params[:id])
+
+        present user: (present user, with: Entities::Users::MaxUser), response: success_resp
       end
 
       desc '更新用户基本信息'
