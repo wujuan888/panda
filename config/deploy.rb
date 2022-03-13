@@ -68,13 +68,13 @@ task :deploy => :environment do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
-    invoke :'rails:db_migrate'
-    invoke :'rails:assets_precompile'
+     invoke :'rails:db_migrate'
+   # invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
 
     to :launch do
-      invoke :'sidekiq:restart'
-      invoke :'unicorn:restart'
+       invoke :'sidekiq:restart'
+       invoke :'unicorn:restart'
     end
   end
 end

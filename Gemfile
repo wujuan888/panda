@@ -15,8 +15,6 @@ gem 'rails', '6.0.2.1'
 gem 'puma', '4.3.5'
 
 gem 'unicorn'
-gem 'execjs'
-gem 'therubyracer'
 gem 'mina', '0.3.7'
 gem 'mina-sidekiq', require: false
 gem 'mina-unicorn', require: false
