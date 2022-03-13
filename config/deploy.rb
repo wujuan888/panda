@@ -7,7 +7,7 @@ require 'mina_sidekiq/tasks'
 
 set :deploy_to, '/data/project/panda'
 
-set :repository, 'git@git.eyesee8.com:eyesee/panda.git'
+set :repository, 'git@github.com:wujuan888/panda.git'
 
 set :shared_paths, %w(config/database.yml config/yetting.yml log)
 # 设置git地址及分支
@@ -43,21 +43,20 @@ task :setup => :environment do
   end
 
 task :production do
-  set :domain, '115.28.109.198'
+  set :domain, '47.97.105.129'
   set :user, 'deployer'
-  set :port, '2323'
+  set :port, '22'
   set :rails_env, 'production'
   set :unicorn_env, 'production'
   set :branch, 'master'
-  queue 'export SSL_CERT_FILE=/usr/lib/ssl/cacert.pem'
 end
 task :development do
-  set :domain, '47.105.67.216'
+  set :domain, '47.97.105.129'
   set :user, 'deployer'
-  set :port, '2323'
+  set :port, '22'
   set :rails_env, 'production'
   set :unicorn_env, 'production'
-  set :branch, 'api'
+  set :branch, 'master'
 end
 
 desc 'Deploys the current version to the server.'
