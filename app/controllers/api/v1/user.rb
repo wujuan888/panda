@@ -117,6 +117,22 @@ module Api
         present users: (present users, with: Entities::Users::MaxUser), response: success_resp
       end
 
+      desc '获取create_wxacode'
+      params do
+        use :uuid_data
+      end
+      get '/user/create_wxacode' do
+        auth_user
+        data = {
+            page: 'pages/admin/staff_info/index',
+            width: 430
+        }
+        head_url = create_wxacode(data)
+        current_user.update(head_url: head_url)
+        present head_url: head_url, response: success_resp
+      end
+
+
       desc '更新用户状态'
       params do
         use :uuid_states_data
