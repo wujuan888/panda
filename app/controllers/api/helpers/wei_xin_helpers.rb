@@ -6,23 +6,11 @@ module Api
       extend Grape::API::Helpers
 
       def app_id
-        Yetting.wei_xin['mini_appid']
+        Yetting.wei_xin['appid']
       end
 
       def secret
-        Yetting.wei_xin['mini_secret']
-      end
-
-      def pay_key
-        Yetting.wei_xin['pay_key']
-      end
-
-      def mch_id
-        Yetting.wei_xin['mch_id']
-      end
-
-      def notify_url
-        Yetting.wei_xin['notify_url']
+        Yetting.wei_xin['secret']
       end
 
       def js_code(code)
