@@ -36,6 +36,10 @@ class User < ApplicationRecord
     { init: '申请中', pass: '申请通过', no_pass: '申请失败', resign: '离职' }
   end
 
+  def self.states_login_names
+    { init: '待审核中', no_pass: '申请失败', resign: '已离职' }
+  end
+
   scope :with_states, ->(states) { where(states: states) }
   scope :with_openid, ->(openid) { where(openid: openid) }
   scope :with_name_phone, ->(name, phone) { where(name: name, phone: phone) }

@@ -39,7 +39,11 @@ module Api
 
         phone = decrypt_phone(params[:encrypted_data], params[:iv], msg[:session_key])
         user = ::User.with_openid_or_phone(msg[:openid], phone)&.last
-        user.update_columns(openid: msg[:openid]) if user.present? && user.openid.blank?
+
+        return { response: err_resp(ERR_CODE[:POP_UP], '该账户不存在') } if user.present?
+        return { response: err_resp(ERR_CODE[:POP_UP], User.states_login_names[user.states]) } unless user.pass?
+
+        user.update_columns(openid: msg[:openid])
 
         present user: (present user, with: Entities::Users::MaxUser), response: success_resp
       end
