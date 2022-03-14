@@ -21,9 +21,10 @@ module Api
         use :uuid_panda_params
       end
       get '/prenatal_behavior/list' do
-        panda = Panda.find(params[:id])
+        list = ::PrenatalBehavior.with_panda(params[:panda_id])\
+                 .with_start_stop_date(params[:start_date], params[:stop_date])
 
-        present panda: (present panda, with: Entities::Pandas::PrenatalBehavior), response: success_resp
+        present list: (present list, with: Entities::PrenatalBehaviors::MinPrenatalBehavior), response: success_resp
       end
 
       desc '创建产前行为'

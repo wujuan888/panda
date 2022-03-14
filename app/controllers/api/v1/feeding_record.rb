@@ -21,9 +21,10 @@ module Api
         use :uuid_panda_params
       end
       get '/feeding_record/list' do
-        panda = Panda.find(params[:id])
+        list = ::FeedingRecord.with_panda(params[:panda_id])\
+                 .with_start_stop_date(params[:start_date], params[:stop_date])
 
-        present panda: (present panda, with: Entities::Pandas::FeedingRecord), response: success_resp
+        present list: (present list, with: Entities::FeedingRecords::MinFeedingRecord), response: success_resp
       end
 
       desc '获取饲养物品'

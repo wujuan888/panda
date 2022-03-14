@@ -23,4 +23,7 @@ class WeightRecord < ApplicationRecord
   belongs_to :panda
   belongs_to :user
   has_many :attachments, as: :item
+  scope :with_panda, ->(panda_id) { where(panda_id: panda_id) }
+
+  scope :with_start_stop_date, ->(start, stop) { where('time >= ? and time <= ?', start, Date.parse(stop) + 1.day) }
 end

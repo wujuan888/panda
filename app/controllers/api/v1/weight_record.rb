@@ -21,9 +21,10 @@ module Api
         use :uuid_panda_params
       end
       get '/weight_record/list' do
-        panda = Panda.find(params[:id])
+        list = ::WeightRecord.with_panda(params[:panda_id])\
+                 .with_start_stop_date(params[:start_date], params[:stop_date])
 
-        present panda: (present panda, with: Entities::Pandas::WeightRecord), response: success_resp
+        present list: (present list, with: Entities::WeightRecords::MinWeightRecord), response: success_resp
       end
 
       desc '创建体重记录'

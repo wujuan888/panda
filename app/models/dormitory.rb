@@ -19,5 +19,5 @@ class Dormitory < ApplicationRecord
   belongs_to :user
   has_many :pandas
   has_many :dormitory_records
-  scope :with_name, ->(drug_name) { where(name: name) }
+  scope :with_name, ->(name) { where(name: name) }
 end

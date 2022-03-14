@@ -19,6 +19,8 @@ module Api
           params :uuid_id_params do
             requires :uuid, type: String, desc: '用户UUID'
             requires :id, type: Integer, desc: '药物记录ID'
+            requires :start_date, type: String, desc: '起始日期'
+            requires :stop_date, type: String, desc: '截止日期'
           end
 
           params :create_params do
