@@ -41,7 +41,7 @@ module Api
         user = ::User.with_openid_or_phone(msg[:openid], phone)&.last
 
         return { response: err_resp(ERR_CODE[:POP_UP], '该账户不存在') } if user.present?
-        return { response: err_resp(ERR_CODE[:POP_UP], User.states_login_names[user.states]) } unless user.pass?
+        return { response: err_resp(ERR_CODE[:POP_UP], ::User.states_login_names[user.states]) } unless user.pass?
 
         user.update_columns(openid: msg[:openid])
 
