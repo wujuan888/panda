@@ -127,7 +127,7 @@ module Api
             page: 'pages/admin/staff_info/index',
             width: 430
         }
-        result = create_wxacode(data)
+        result = create_code(data)
         present result: result, response: success_resp
       end
 

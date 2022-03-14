@@ -25,8 +25,10 @@ module Api
         api_get_request(url)
       end
 
-      def create_wxacode(params)
+      def create_code(params)
+        logger.info(" create_code   params ", params)
         token_hash = js_token
+        logger.info(" create_code   token_hash ", token_hash)
         if token_hash['access_token']
           url = "https://api.weixin.qq.com/wxa/getwxacode?access_token=#{token_hash['access_token']}"
           result = api_post_request(url, params)
