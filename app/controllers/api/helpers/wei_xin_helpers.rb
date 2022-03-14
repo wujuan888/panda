@@ -31,13 +31,8 @@ module Api
           url = "https://api.weixin.qq.com/wxa/getwxacode?access_token=#{token_hash['access_token']}"
           result = api_post_request(url, params)
           logger.info(" create_wxacode   result ", result)
-          file_name = shared_path + 'qqqqqq.jpeg'
-          File.open(file_name) do |f|
-            f.write [img.gsub(/\s+/, '')].pack('H*')
-          end
-          oss_dir = 'panda'
-          oss_path = AliyunOss.instance.put(oss_dir, File.open(file_name), 'content_type': "image/jpeg")
-          oss_path
+
+          result
         else
           ''
         end

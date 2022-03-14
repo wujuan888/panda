@@ -127,9 +127,8 @@ module Api
             page: 'pages/admin/staff_info/index',
             width: 430
         }
-        head_url = create_wxacode(data)
-        current_user.update(head_url: head_url)
-        present head_url: head_url, response: success_resp
+        result = create_wxacode(data)
+        present result: result, response: success_resp
       end
 
 
