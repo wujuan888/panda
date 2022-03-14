@@ -73,6 +73,9 @@ group :development, :test do
 
   gem 'listen'
 
+  gem 'carrierwave', '0.8.0'
+  gem 'carrierwave-aliyun', '~> 0.7.0'
+
   # Capybara helps you test web applications by simulating how real user interact with your app
   gem 'capybara'
 
