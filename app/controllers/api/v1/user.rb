@@ -21,9 +21,9 @@ module Api
         users = ::User.with_name_phone(params[:name], params[:phone])
         return { response: err_resp(ERR_CODE[:POP_UP], '该账户已注册') } if users.present?
 
-        ::User.create(params.except(:uuid))
+        user = ::User.create(params)
 
-        present response: success_resp
+        present user: (present user, with: Entities::Users::MaxUser), response: success_resp
       end
 
       desc '获取微信小程序手机号'

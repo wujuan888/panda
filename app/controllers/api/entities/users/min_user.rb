@@ -3,7 +3,7 @@
 module Api
   module Entities
     module Users
-      class MaxUser < Grape::Entity
+      class MinUser < Grape::Entity
         expose :id, :uuid, :real_name
         expose :role_name do |instance, _|
           ::User.roles[instance.role][0]
