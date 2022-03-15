@@ -18,7 +18,7 @@ module Api
         use :new_data
       end
       post '/user/register' do
-        users = ::User.with_name_phone(params[:name], params[:phone])
+        users = ::User.with_phone(params[:phone])
         return { response: err_resp(ERR_CODE[:POP_UP], '该账户已注册') } if users.present?
 
         user = ::User.create(params)

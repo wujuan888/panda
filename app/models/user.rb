@@ -44,5 +44,6 @@ class User < ApplicationRecord
   scope :with_states, ->(states) { where(states: states) }
   scope :with_openid, ->(openid) { where(openid: openid) }
   scope :with_name_phone, ->(name, phone) { where(name: name, phone: phone) }
+  scope :with_phone, ->(phone) { where(phone: phone) }
   scope :with_openid_or_phone, ->(openid, phone) { where('openid = ? or phone = ?', openid, phone) }
 end
