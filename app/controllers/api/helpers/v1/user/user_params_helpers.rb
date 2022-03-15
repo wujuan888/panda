@@ -16,7 +16,6 @@ module Api
           end
 
           params :new_data do
-            requires :uuid, type: String, desc: '用户UUID'
             requires :real_name, type: String, desc: '用户的真实姓名'
             requires :role, type: Integer, desc: '0：管理员 1：饲养员，2：兽医'
             requires :phone, type: String, desc: '手机号'
