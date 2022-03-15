@@ -106,6 +106,18 @@ module Api
         present response: success_resp
       end
 
+      desc '获取用户'
+      params do
+        use :uuid_data
+      end
+      get '/user/list' do
+        auth_user
+        users = ::User.with_states(:pass)
+
+        present users: (present users, with: Entities::Users::MaxUser), response: success_resp
+      end
+
+
       desc '获取待审核用户'
       params do
         use :uuid_data
@@ -115,20 +127,6 @@ module Api
         users = ::User.with_states(:init)
 
         present users: (present users, with: Entities::Users::MaxUser), response: success_resp
-      end
-
-      desc '获取create_wxacode'
-      params do
-        use :uuid_data
-      end
-      get '/user/create_wxacode' do
-        auth_user
-        data = {
-            page: 'pages/admin/staff_info/index',
-            width: 430
-        }
-        result = create_code(data)
-        present result: result, response: success_resp
       end
 
 
