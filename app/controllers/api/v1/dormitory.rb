@@ -32,8 +32,7 @@ module Api
         dormitories = ::Dormitory.with_name(params[:name])
         return { response: err_resp(ERR_CODE[:POP_UP], '该宿舍名已存在') } if dormitories.present?
 
-        dormitory = ::Dormitory.create(params.except(:uuid, :panda_ids))
-        ::Panda.where(id: params[:panda_ids]).update_all(dormitory_id: dormitory.id) if params[:panda_ids].present? && params[:panda_ids].length.positive?
+        ::Dormitory.create(params.except(:uuid))
 
         present response: success_resp
       end

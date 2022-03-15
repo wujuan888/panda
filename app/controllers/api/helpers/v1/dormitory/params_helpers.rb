@@ -20,9 +20,9 @@ module Api
             requires :uuid, type: String, desc: '用户UUID'
             requires :name, type: String, desc: '名称'
             requires :address, type: String, desc: '地址'
-            requires :user_id, type: Integer, desc: '负责人ID'
+            requires :user_ids, type: Array[Integer], desc: '负责人ID'
             requires :remark, type: String, desc: '备注'
-            optional :panda_ids, type: Array[Integer], desc: '熊猫ID'
+            requires :panda_ids, type: Array[Integer], desc: '熊猫ID'
           end
 
           params :update_params do

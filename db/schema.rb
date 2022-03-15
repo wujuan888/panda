@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_09_022725) do
+ActiveRecord::Schema.define(version: 2022_03_15_132240) do
 
   create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "panda_id"
@@ -175,6 +175,13 @@ ActiveRecord::Schema.define(version: 2022_03_09_022725) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["panda_id"], name: "index_prenatal_behaviors_on_panda_id"
     t.index ["user_id"], name: "index_prenatal_behaviors_on_user_id"
+  end
+
+  create_table "table_dormitories_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.bigint "dormitory_id"
+    t.bigint "user_id"
+    t.index ["dormitory_id"], name: "index_table_dormitories_users_on_dormitory_id"
+    t.index ["user_id"], name: "index_table_dormitories_users_on_user_id"
   end
 
   create_table "table_drugs_drug_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|

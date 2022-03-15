@@ -23,7 +23,8 @@
 #
 class User < ApplicationRecord
   enum states: { init: 0, pass: 1, no_pass: 2, resign: 3 }
-  has_many :dormitories
+  has_and_belongs_to_many :dormitories, required: false
+
   before_validation do
     write_attribute(:uuid, SecureRandom.uuid.delete('-')) if new_record? || uuid.blank?
   end
