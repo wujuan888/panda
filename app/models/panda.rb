@@ -51,6 +51,10 @@ class Panda < ApplicationRecord
 
   after_commit :update_age
 
+  def self.gender_str
+    %w[未知 雄性 雌性]
+  end
+
   def update_age
     return if birth_date.blank?
 
