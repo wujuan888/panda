@@ -114,7 +114,7 @@ module Api
       end
       get '/user/list' do
         auth_user
-        users = ::User.with_states(:pass)
+        users = ::User.with_states([:pass, :resign]).order('states asc')
 
         present users: (present users, with: Entities::Users::MaxUser), response: success_resp
       end
