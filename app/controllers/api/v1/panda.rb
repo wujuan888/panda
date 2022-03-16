@@ -22,13 +22,7 @@ module Api
         use :uuid_search_params
       end
       get '/panda/list' do
-        pandas = if current_user.role == 0
-                   ::Panda.all
-                 else
-                   ids = current_user.dormitories.pluck('id')
-                   ids = [-1] if ids.blank?
-                   ::Panda.with_dormitory(ids)
-                 end
+        pandas = ::Panda.all
         pandas = search_panda(params, pandas)
 
         present pandas: (present pandas, with: Entities::Pandas::MinPanda), response: success_resp
