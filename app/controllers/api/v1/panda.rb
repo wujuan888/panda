@@ -22,7 +22,7 @@ module Api
         use :uuid_search_params
       end
       get '/panda/list' do
-        pandas = if current_user.role == 1
+        pandas = if current_user.role == 0
                    ::Panda.all
                  else
                    ids = current_user.dormitories.pluck('id')
