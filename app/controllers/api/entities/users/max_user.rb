@@ -9,6 +9,9 @@ module Api
         expose :role_name do |instance, _|
           ::User.roles[instance.role][0]
         end
+        expose :is_on_job do |instance, _|
+          instance.pass?
+        end
       end
     end
   end

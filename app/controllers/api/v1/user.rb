@@ -101,7 +101,9 @@ module Api
       post '/user/update' do
         auth_user
         user = ::User.find(params[:id])
-        user.update(params.except(:uuid, :id))
+        user.update(params.except(:uuid, :id, :is_on_job))
+        states = params[:is_on_job] ? :pass : :resign
+        user.update_columns(states: states)
 
         present response: success_resp
       end
@@ -130,17 +132,47 @@ module Api
       end
 
 
-      desc '更新用户状态'
+      desc '拒绝用户申请'
       params do
         use :uuid_states_data
       end
-      post '/user/audit' do
+      post '/user/reject' do
         auth_user
         user = ::User.find(params[:id])
         return { response: err_resp(ERR_CODE[:POP_UP], '该用户不存在') } if user.blank?
 
-        user.update(params.except(:uuid, :id))
+        user.delete
         users = ::User.with_states(:init)
+
+        present users: (present users, with: Entities::Users::MaxUser), response: success_resp
+      end
+
+      desc '通过用户申请'
+      params do
+        use :uuid_states_data
+      end
+      post '/user/pass' do
+        auth_user
+        user = ::User.find(params[:id])
+        return { response: err_resp(ERR_CODE[:POP_UP], '该用户不存在') } if user.blank?
+
+        user.update(states: :pass)
+        users = ::User.with_states(:init)
+
+        present users: (present users, with: Entities::Users::MaxUser), response: success_resp
+      end
+
+      desc '用户离职'
+      params do
+        use :uuid_states_data
+      end
+      post '/user/resign' do
+        auth_user
+        user = ::User.find(params[:id])
+        return { response: err_resp(ERR_CODE[:POP_UP], '该用户不存在') } if user.blank?
+
+        user.update(states: :resign)
+        users = ::User.with_states(%i[pass resign]).order('states asc')
 
         present users: (present users, with: Entities::Users::MaxUser), response: success_resp
       end

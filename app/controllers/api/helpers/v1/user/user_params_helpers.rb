@@ -28,6 +28,7 @@ module Api
             requires :real_name, type: String, desc: '用户的真实姓名'
             requires :phone, type: String, desc: '手机号'
             requires :head_url, type: String, desc: '头像'
+            requires :is_on_job, type: Boolean, desc: '在职状态'
           end
 
           params :openid_data do
@@ -43,7 +44,6 @@ module Api
           params :uuid_states_data do
             requires :uuid, type: String, desc: '用户UUID'
             requires :id, type: Integer, desc: '用户ID'
-            requires :states, type: Integer, values: [1, 2, 3], desc: '用户状态'
           end
 
         end
