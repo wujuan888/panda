@@ -4,7 +4,7 @@ module Api
   module Entities
     module Pandas
       class ParentingRecord < Grape::Entity
-        expose :id, :name, :gender, :dormitory_id, :head_url, :pedigree_number
+        expose :id, :name, :age, :gender, :dormitory_id, :head_url, :pedigree_number
         expose :dormitory_name do |instance, _|
           instance.dormitory&.name
         end
@@ -14,6 +14,9 @@ module Api
         end
         expose :mother_name do |instance, _|
           instance.mother&.name
+        end
+        expose :gender_name do |instance, _|
+          ::Panda.gender_str[instance.gender]
         end
         expose :list do |instance, _|
           Entities::ParentingRecords::MinParentingRecord.represent instance.parenting_records
