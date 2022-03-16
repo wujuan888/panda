@@ -80,7 +80,7 @@ module Api
       params do
         use :uuid_id_params
       end
-      post '/panda/info' do
+      get '/panda/info' do
         panda = ::Panda.find(params[:id])
 
         present panda: (present panda, with: Entities::Pandas::MaxPanda), response: success_resp
