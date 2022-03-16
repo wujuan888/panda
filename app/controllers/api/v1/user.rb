@@ -136,7 +136,7 @@ module Api
       params do
         use :uuid_states_data
       end
-      post '/user/reject' do
+      get '/user/reject' do
         auth_user
         user = ::User.find(params[:id])
         return { response: err_resp(ERR_CODE[:POP_UP], '该用户不存在') } if user.blank?
@@ -151,7 +151,7 @@ module Api
       params do
         use :uuid_states_data
       end
-      post '/user/pass' do
+      get '/user/pass' do
         auth_user
         user = ::User.find(params[:id])
         return { response: err_resp(ERR_CODE[:POP_UP], '该用户不存在') } if user.blank?
@@ -166,7 +166,7 @@ module Api
       params do
         use :uuid_states_data
       end
-      post '/user/resign' do
+      get '/user/resign' do
         auth_user
         user = ::User.find(params[:id])
         return { response: err_resp(ERR_CODE[:POP_UP], '该用户不存在') } if user.blank?
