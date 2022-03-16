@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_15_132240) do
+ActiveRecord::Schema.define(version: 2022_03_16_124638) do
 
   create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "panda_id"
@@ -94,11 +94,12 @@ ActiveRecord::Schema.define(version: 2022_03_15_132240) do
     t.string "poop_quality", limit: 10, comment: "大便质量"
     t.string "mucus_texture", limit: 30, comment: "粘液质地"
     t.string "mucus_pain", limit: 30, comment: "粘液痛感"
-    t.string "mucus_color", limit: 20, comment: "粘液颜色"
     t.string "mucus_quality", limit: 10, comment: "粘液质量"
     t.string "evaluation", limit: 200, comment: "综合评估"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "forage_time", limit: 10, comment: "采食时间"
+    t.string "mucus_time", limit: 10, comment: "粘液时间"
     t.index ["panda_id"], name: "index_feeding_records_on_panda_id"
     t.index ["user_id"], name: "index_feeding_records_on_user_id"
   end

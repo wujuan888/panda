@@ -12,6 +12,7 @@ module Api
         expose :user_name do |instance, _|
           instance.user&.real_name
         end
+        expose :forage_time
         expose :Health_medicine
         expose :apple_ingest
         expose :apple_input
@@ -21,7 +22,7 @@ module Api
         expose :bamboo_variety
         expose :collection
         expose :evaluation
-        expose :mucus_color
+        expose :mucus_time
         expose :mucus_pain
         expose :mucus_quality
         expose :mucus_texture

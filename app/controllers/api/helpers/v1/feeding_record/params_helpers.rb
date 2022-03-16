@@ -26,6 +26,7 @@ module Api
           params :create_params do
             requires :uuid, type: String, desc: '用户UUID'
             requires :panda_id, type: Integer, desc: '熊猫'
+            requires :forage_time, type: String, desc: '采食时间'
             requires :Health_medicine, type: Array[String], desc: '保健药品'
             requires :apple_ingest, type: String, desc: '苹果食入'
             requires :apple_input, type: String, desc: '苹果投给'
@@ -35,7 +36,7 @@ module Api
             requires :bamboo_variety, type: String, desc: '竹子品种'
             requires :collection, type: String, desc: '采集情况'
             requires :evaluation, type: String, desc: '综合评估'
-            requires :mucus_color, type: String, desc: '粘液颜色'
+            requires :mucus_time, type: String, desc: '粘液时间'
             requires :mucus_pain, type: String, desc: '粘液痛感'
             requires :mucus_quality, type: String, desc: '粘液质量'
             requires :mucus_texture, type: String, desc: '粘液质地'
