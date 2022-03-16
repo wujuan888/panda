@@ -11,6 +11,7 @@ module Api
       version 'v1', using: :path
 
       helpers Api::Helpers::V1::Panda::ParamsHelpers
+      helpers Api::Helpers::V1::Panda::MethodHelpers
 
       before do
         auth_user
@@ -28,7 +29,7 @@ module Api
                    ids = [-1] if ids.blank?
                    ::Panda.with_dormitory(ids)
                  end
-        pandas = pandas.where(params.except(:uuid)) if params.keys.length > 1
+        pandas = search_panda(params, pandas)
 
         present pandas: (present pandas, with: Entities::Pandas::MinPanda), response: success_resp
       end
