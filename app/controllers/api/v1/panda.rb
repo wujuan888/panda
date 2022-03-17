@@ -21,7 +21,7 @@ module Api
         use :uuid_search_params
       end
       get '/panda/list' do
-        pandas = ::Panda.ransack(params.except(:uuid))
+        pandas = ::Panda.ransack(params.except(:uuid)).result
 
         present pandas: (present pandas, with: Entities::Pandas::MinPanda), response: success_resp
       end
