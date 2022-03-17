@@ -55,6 +55,10 @@ gem 'httparty'
 # javascript runtime
 gem 'execjs'
 gem 'therubyracer'
+gem 'ransack'
+gem 'carrierwave', '0.8.0'
+gem 'carrierwave-aliyun', '~> 0.7.0'
+
 
 gem 'rqrcode'
 gem 'roo', '~> 2.8.0'
@@ -73,13 +77,9 @@ group :development, :test do
 
   gem 'listen'
 
-  gem 'carrierwave', '0.8.0'
-  gem 'carrierwave-aliyun', '~> 0.7.0'
-
   # Capybara helps you test web applications by simulating how real user interact with your app
   gem 'capybara'
-  
-  gem 'ransack'
+
 
   gem 'better_errors'
   gem 'binding_of_caller'
