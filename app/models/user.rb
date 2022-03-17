@@ -42,6 +42,7 @@ class User < ApplicationRecord
   end
 
   scope :with_states, ->(states) { where(states: states) }
+  scope :with_role_pass, ->(role) { where(role: role, states: :pass) }
   scope :with_openid, ->(openid) { where(openid: openid) }
   scope :with_name_phone, ->(name, phone) { where(name: name, phone: phone) }
   scope :with_phone, ->(phone) { where(phone: phone) }
