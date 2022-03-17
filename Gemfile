@@ -78,6 +78,8 @@ group :development, :test do
 
   # Capybara helps you test web applications by simulating how real user interact with your app
   gem 'capybara'
+  
+  gem 'ransack'
 
   gem 'better_errors'
   gem 'binding_of_caller'
