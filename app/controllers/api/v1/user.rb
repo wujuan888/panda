@@ -125,7 +125,7 @@ module Api
       end
       get '/user/breeder_list' do
         auth_user
-        users = ::User.with_role_pass(1).ransack(params.except(:uuid))
+        users = ::User.with_role_pass(1).ransack(params.except(:uuid)).result
 
         present users: (present users, with: Entities::Users::MaxUser), response: success_resp
       end
