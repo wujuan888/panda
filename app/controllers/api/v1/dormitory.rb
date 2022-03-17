@@ -43,7 +43,7 @@ module Api
       params do
         use :uuid_id_params
       end
-      post '/dormitory/info' do
+      get '/dormitory/info' do
         dormitory = ::Dormitory.find(params[:id])
 
         present dormitory: (present dormitory, with: Entities::Dormitories::MaxDormitory), response: success_resp
