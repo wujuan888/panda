@@ -121,26 +121,14 @@ module Api
 
       desc '获取饲养员'
       params do
-        use :uuid_data
+        use :breeder_data
       end
       get '/user/breeder_list' do
         auth_user
-        users = ::User.with_role_pass(1)
+        users = ::User.with_role_pass(1).ransack(params.except(:uuid))
 
         present users: (present users, with: Entities::Users::MaxUser), response: success_resp
       end
-
-      desc '获取兽医'
-      params do
-        use :uuid_data
-      end
-      get '/user/doctor_list' do
-        auth_user
-        users = ::User.with_role_pass(2)
-
-        present users: (present users, with: Entities::Users::MaxUser), response: success_resp
-      end
-
 
       desc '获取待审核用户'
       params do
