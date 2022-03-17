@@ -6,7 +6,7 @@ module Api
       class MaxDormitory < Grape::Entity
         expose :id, :name, :address, :remark
         expose :user_names do |instance, _|
-          instance.users.pluck('read_name').join('、')
+          instance.users.pluck('real_name').join('、')
         end
         expose :user_ids do |instance, _|
           instance.users&.pluck('id')
