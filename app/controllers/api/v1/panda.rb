@@ -69,6 +69,7 @@ module Api
         return { response: err_resp(ERR_CODE[:POP_UP], '该姓名已存在') } if pandas.present?
 
         panda = ::Panda.create(params.except(:uuid))
+        create_panda(panda.dormitory_id)
         PandaWorker.perform_async(0, { gender: panda.gender })
 
         present response: success_resp
@@ -91,6 +92,7 @@ module Api
       post '/panda/update' do
         panda = ::Panda.find(params[:id])
         old_gender = panda.gender
+        change_panda(panda.dormitory_id, params[:dormitory_id])
         panda.update(params.except(:uuid, :id))
         PandaWorker.perform_async(1, { gender: panda.gender, old_gender: old_gender }) if panda.gender != old_gender
 

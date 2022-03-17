@@ -11,6 +11,7 @@ module Api
       version 'v1', using: :path
 
       helpers Api::Helpers::V1::Dormitory::ParamsHelpers
+      helpers Api::Helpers::V1::Dormitory::MethodHelpers
 
       before do
         auth_user
@@ -29,6 +30,7 @@ module Api
         use :create_params
       end
       post '/dormitory/create' do
+        create_panda_change(params[:panda_ids]) if params[:panda_ids].present?
         dormitories = ::Dormitory.with_name(params[:name])
         return { response: err_resp(ERR_CODE[:POP_UP], '该宿舍名已存在') } if dormitories.present?
 
@@ -53,6 +55,7 @@ module Api
       end
       post '/dormitory/update' do
         dormitory = ::Dormitory.find(params[:id])
+        panda_change(params[:panda_ids], params[:id]) if params[:panda_ids].present?
         dormitory.update(params.except(:uuid, :id))
 
         present response: success_resp
