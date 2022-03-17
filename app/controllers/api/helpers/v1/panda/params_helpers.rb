@@ -13,11 +13,11 @@ module Api
 
           params :uuid_search_params do
             requires :uuid, type: String, desc: '用户UUID'
-            optional :name, type: String, desc: '姓名'
-            optional :gender, type: Integer, values: [1, 2], desc: '性别'
-            optional :is_ill, type: Boolean, values: [true], desc: '生病'
-            optional :is_pregnant, type: Boolean, values: [true], desc: '怀孕'
-            optional :is_lease, type: Boolean, values: [true], desc: '出租'
+            optional :name_cont, type: String, desc: '姓名'
+            optional :gender_eq, type: Integer, values: [1, 2], desc: '性别'
+            optional :is_ill_eq, type: Boolean, desc: '生病'
+            optional :is_pregnant_eq, type: Boolean, desc: '怀孕'
+            optional :is_lease_eq, type: Boolean, desc: '出租'
           end
 
           params :uuid_id_params do

@@ -11,7 +11,6 @@ module Api
       version 'v1', using: :path
 
       helpers Api::Helpers::V1::Panda::ParamsHelpers
-      helpers Api::Helpers::V1::Panda::MethodHelpers
 
       before do
         auth_user
@@ -22,8 +21,7 @@ module Api
         use :uuid_search_params
       end
       get '/panda/list' do
-        pandas = ::Panda.all
-        pandas = search_panda(params, pandas)
+        pandas = ::Panda.ransack(params.except(:uuid))
 
         present pandas: (present pandas, with: Entities::Pandas::MinPanda), response: success_resp
       end
