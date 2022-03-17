@@ -21,4 +21,10 @@ class Dormitory < ApplicationRecord
   has_many :dormitory_records
   has_and_belongs_to_many :users, required: false
   scope :with_name, ->(name) { where(name: name) }
+
+  after_commit :change_item
+
+  def change_item
+    update_columns(panda_count: pandas.count)
+  end
 end

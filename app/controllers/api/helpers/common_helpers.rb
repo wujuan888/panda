@@ -33,7 +33,7 @@ module Api
           end
 
           def auth_user
-            raise AuthUser if current_user.nil?
+            raise AuthUser if current_user.nil? || !current_user.pass?
           end
 
           def date_today

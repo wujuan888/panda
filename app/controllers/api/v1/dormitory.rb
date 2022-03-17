@@ -32,7 +32,7 @@ module Api
         dormitories = ::Dormitory.with_name(params[:name])
         return { response: err_resp(ERR_CODE[:POP_UP], '该宿舍名已存在') } if dormitories.present?
 
-        ::Dormitory.create(params.except(:uuid))
+        ::Dormitory.create(params.except(:uuid).merge(user_id: current_user.id))
 
         present response: success_resp
       end
