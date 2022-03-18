@@ -13,7 +13,7 @@ module Api
 
           params :uuid_id_params do
             requires :uuid, type: String, desc: '用户UUID'
-            requires :panda_id, type: Integer, desc: '熊猫ID'
+            requires :id, type: Integer, desc: '药品ID'
           end
 
           params :uuid_panda_params do
