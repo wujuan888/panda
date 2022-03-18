@@ -40,7 +40,7 @@ module Api
         use :create_params
       end
       post '/parenting_record/create' do
-        record = ::ParentingRecord.create(params.except(:uuid))
+        record = ::ParentingRecord.create(params.except(:uuid).merge(user_id: current_user.id))
 
         present panda: (present record.panda, with: Entities::Pandas::ParentingRecord), response: success_resp
       end

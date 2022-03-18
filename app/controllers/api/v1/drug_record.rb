@@ -39,7 +39,7 @@ module Api
         use :create_params
       end
       post '/drug_record/create' do
-        record = ::DrugRecord.create(params.except(:uuid))
+        record = ::DrugRecord.create(params.except(:uuid).merge(user_id: current_user.id))
 
         present panda: (present record.panda, with: Entities::Pandas::DrugRecord), response: success_resp
       end

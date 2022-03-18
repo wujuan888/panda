@@ -4,7 +4,7 @@ module Api
   module Entities
     module DrugRecords
       class MaxDrugRecord < Grape::Entity
-        expose :id, :evaluation
+        expose :id
         expose :time, format_with: :datetime
         expose :panda do |instance, _|
           Entities::Pandas::BasePanda.represent instance.panda

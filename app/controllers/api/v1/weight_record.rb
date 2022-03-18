@@ -32,7 +32,7 @@ module Api
         use :create_params
       end
       post '/weight_record/create' do
-        record = ::WeightRecord.create(params.except(:uuid))
+        record = ::WeightRecord.create(params.except(:uuid).merge(user_id: current_user.id))
 
         present panda: (present record.panda, with: Entities::Pandas::WeightRecord), response: success_resp
       end

@@ -40,7 +40,7 @@ module Api
         use :create_params
       end
       post '/feeding_record/create' do
-        record = ::FeedingRecord.create(params.except(:uuid))
+        record = ::FeedingRecord.create(params.except(:uuid).merge(user_id: current_user.id))
 
         present panda: (present record.panda, with: Entities::Pandas::FeedingRecord), response: success_resp
       end

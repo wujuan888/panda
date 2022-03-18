@@ -32,7 +32,7 @@ module Api
         use :create_params
       end
       post '/prenatal_behavior/create' do
-        record = ::PrenatalBehavior.create(params.except(:uuid))
+        record = ::PrenatalBehavior.create(params.except(:uuid).merge(user_id: current_user.id))
 
         present panda: (present record.panda, with: Entities::Pandas::PrenatalBehavior), response: success_resp
       end
