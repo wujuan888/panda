@@ -11,6 +11,7 @@ module Api
       version 'v1', using: :path
 
       helpers Api::Helpers::V1::Panda::ParamsHelpers
+      helpers Api::Helpers::V1::Panda::MethodHelpers
 
       before do
         auth_user
