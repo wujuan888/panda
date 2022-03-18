@@ -11,12 +11,12 @@ module Api
             requires :uuid, type: String, desc: '用户UUID'
           end
 
-          params :uuid_panda_params do
+          params :uuid_id_paramss do
             requires :uuid, type: String, desc: '用户UUID'
             requires :panda_id, type: Integer, desc: '熊猫ID'
           end
 
-          params :uuid_id_params do
+          params :uuid_panda_param do
             requires :uuid, type: String, desc: '用户UUID'
             requires :id, type: Integer, desc: '药物记录ID'
             requires :start_date, type: String, desc: '起始日期'
