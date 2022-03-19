@@ -37,7 +37,7 @@ module Api
             requires :gender, type: Integer, values: [1, 2], desc: '性别'
             requires :pedigree_number, type: String, desc: '谱系号'
             requires :birth_date, type: String, desc: '出生日期'
-            requires :initial_weight, type: String, desc: '初始体重'
+            requires :initial_weight, type: String, desc: '体重'
             optional :mother_id, type: Integer, desc: '母亲ID'
             optional :father_id, type: Integer, desc: '父亲ID'
             optional :dormitory_id, type: Integer, desc: '宿舍ID'

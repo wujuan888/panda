@@ -10,10 +10,10 @@ module Api
         end
         expose :is_ill, :is_lease, :is_pregnant
         expose :father_name do |instance, _|
-          instance.father&.name
+          instance.father.present? ? instance.father&.name : ''
         end
         expose :mother_name do |instance, _|
-          instance.mother&.name
+          instance.mother.present? ? instance.mother&.name : ''
         end
         expose :gender_name do |instance, _|
           ::Panda.gender_str[instance.gender]
