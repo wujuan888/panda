@@ -27,7 +27,7 @@ module Api
             requires :uuid, type: String, desc: '用户UUID'
             requires :panda_id, type: Integer, desc: '熊猫'
             requires :forage_time, type: String, desc: '采食时间'
-            requires :Health_medicine, type: Array[String], desc: '保健药品'
+            requires :Health_medicine, type: String, desc: '保健药品'
             requires :apple_ingest, type: String, desc: '苹果食入'
             requires :apple_input, type: String, desc: '苹果投给'
             requires :bamboo_ingest, type: String, desc: '竹子食入'
@@ -45,7 +45,6 @@ module Api
             requires :poop_quality, type: String, desc: '大便质量'
             requires :poop_texture, type: String, desc: '大便质地'
             requires :spiritual, type: String, desc: '精神活动'
-            requires :time, type: String, desc: '时间'
             requires :wo_tou_ingest, type: String, desc: '窝头食入'
             requires :wo_tou_input, type: String, desc: '窝头投给'
           end

@@ -6,6 +6,7 @@ module Api
       class PrenatalBehavior < Grape::Entity
         expose :id, :behavior_event
         expose :time, format_with: :datetime
+        expose :created_at, format_with: :datetime
         expose :panda do |instance, _|
           Entities::Pandas::BasePanda.represent instance.panda
         end

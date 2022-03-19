@@ -16,6 +16,11 @@ module Api
       date.present? ? date.strftime('%Y-%m-%d %H:%M') : nil
     end
 
+
+    Grape::Entity.format_with :only_date do |date|
+      date.present? ? date.strftime('%Y-%m-%d') : nil
+    end
+
     mount V1::Mount
 
     add_swagger_documentation(
