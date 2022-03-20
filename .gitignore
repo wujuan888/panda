@@ -14,3 +14,4 @@ test
 dump.rdb
 .bundle/
 vendor/bundle/
+.idea/panda.iml 
