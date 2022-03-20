@@ -32,6 +32,7 @@ module Api
             requires :feed_ratio, type: String, desc: '采食比'
             requires :other, type: String, desc: '其它'
             requires :weight, type: String, desc: '体重'
+            optional :image_list, type: Array[String], desc: '照片url'
           end
 
           params :update_params do

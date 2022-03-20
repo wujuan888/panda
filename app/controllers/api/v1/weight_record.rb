@@ -32,7 +32,12 @@ module Api
         use :create_params
       end
       post '/weight_record/create' do
-        record = ::WeightRecord.create(params.except(:uuid).merge(user_id: current_user.id))
+        record = ::WeightRecord.create(params.except(:uuid, :image_list).merge(user_id: current_user.id))
+        if params[:image_list].present?
+          params[:image_list].each do |image|
+            ::Attachment.create(item_id: record.id, item_type: 'WeightRecord', url: image)
+          end
+        end
 
         present panda: (present record.panda, with: Entities::Pandas::WeightRecord), response: success_resp
       end

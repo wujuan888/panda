@@ -30,6 +30,7 @@ module Api
             requires :drugs, type: String, desc: '药物'
             requires :other, type: String, desc: '其它'
             requires :remark, type: String, desc: '备注'
+            optional :image_list, type: Array[String], desc: '照片url'
           end
 
           params :update_params do

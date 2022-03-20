@@ -34,6 +34,7 @@ module Api
             requires :poop, type: String, desc: '大便'
             requires :remark, type: String, desc: '备注'
             requires :wo_tou, type: String, desc: '窝头'
+            optional :image_list, type: Array[String], desc: '照片url'
           end
 
           params :update_params do

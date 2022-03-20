@@ -36,6 +36,7 @@ module Api
             requires :pee, type: String, desc: '小便'
             requires :poop, type: String, desc: '大便'
             requires :skin_temperature, type: String, desc: '肤温'
+            optional :image_list, type: Array[String], desc: '照片url'
           end
 
           params :update_params do

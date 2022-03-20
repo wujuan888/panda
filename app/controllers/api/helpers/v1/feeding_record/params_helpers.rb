@@ -47,6 +47,7 @@ module Api
             requires :spiritual, type: String, desc: '精神活动'
             requires :wo_tou_ingest, type: String, desc: '窝头食入'
             requires :wo_tou_input, type: String, desc: '窝头投给'
+            optional :image_list, type: Array[String], desc: '照片url'
           end
 
           params :update_params do

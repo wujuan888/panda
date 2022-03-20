@@ -39,7 +39,12 @@ module Api
         use :create_params
       end
       post '/drug_record/create' do
-        record = ::DrugRecord.create(params.except(:uuid).merge(user_id: current_user.id))
+        record = ::DrugRecord.create(params.except(:uuid, :image_list).merge(user_id: current_user.id))
+        if params[:image_list].present?
+          params[:image_list].each do |image|
+            ::Attachment.create(item_id: record.id, item_type: 'DrugRecord', url: image)
+          end
+        end
 
         present panda: (present record.panda, with: Entities::Pandas::DrugRecord), response: success_resp
       end

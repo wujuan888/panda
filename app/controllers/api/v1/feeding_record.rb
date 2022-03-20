@@ -40,7 +40,12 @@ module Api
         use :create_params
       end
       post '/feeding_record/create' do
-        record = ::FeedingRecord.create(params.except(:uuid).merge(user_id: current_user.id, time: Time.now))
+        record = ::FeedingRecord.create(params.except(:uuid, :image_list).merge(user_id: current_user.id, time: Time.now))
+        if params[:image_list].present?
+          params[:image_list].each do |image|
+            ::Attachment.create(item_id: record.id, item_type: 'FeedingRecord', url: image)
+          end
+        end
 
         present panda: (present record.panda, with: Entities::Pandas::FeedingRecord), response: success_resp
       end
