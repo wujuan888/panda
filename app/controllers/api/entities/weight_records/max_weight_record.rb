@@ -5,7 +5,7 @@ module Api
     module WeightRecords
       class MaxWeightRecord < Grape::Entity
         expose :id, :daily_gain, :weight
-        expose :date, format_with: :only_date
+        expose :time, format_with: :only_date
         expose :created_at, format_with: :datetime
         expose :panda do |instance, _|
           Entities::Pandas::BasePanda.represent instance.panda

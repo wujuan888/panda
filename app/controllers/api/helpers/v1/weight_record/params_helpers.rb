@@ -26,7 +26,7 @@ module Api
           params :create_params do
             requires :uuid, type: String, desc: '用户UUID'
             requires :panda_id, type: Integer, desc: '熊猫'
-            requires :date, type: String, desc: '日期'
+            requires :time, type: String, desc: '日期'
             requires :daily_gain, type: String, desc: '日增重'
             requires :feed_intake, type: String, desc: '采食量'
             requires :feed_ratio, type: String, desc: '采食比'
