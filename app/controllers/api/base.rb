@@ -13,7 +13,7 @@ module Api
     end
 
     Grape::Entity.format_with :datetime do |date|
-      date.present? ? date.strftime('%Y-%m-%d %H:%M') : nil
+      date.present? ? date.localtime.strftime('%Y-%m-%d %H:%M') : nil
     end
 
 
