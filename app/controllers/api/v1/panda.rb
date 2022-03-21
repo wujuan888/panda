@@ -63,7 +63,7 @@ module Api
                  father_father_head_url: father&.father&.head_url,
                  father_mother_head_url: father&.mother&.head_url,
                  mother_father_head_url: mother&.father&.head_url,
-                 mother_mother_head_url: mother&.mother&.head_url}
+                 mother_mother_head_url: mother&.mother&.head_url }
         present data: data, response: success_resp
       end
 
@@ -108,7 +108,7 @@ module Api
 
       desc '更新熊猫生病属性'
       params do
-        use :update_params
+        use :ill_params
       end
       post '/panda/ill_update' do
         panda = ::Panda.find(params[:id])
@@ -120,7 +120,7 @@ module Api
 
       desc '更新熊猫怀孕属性'
       params do
-        use :update_params
+        use :pregnant_params
       end
       post '/panda/pregnant_update' do
         panda = ::Panda.find(params[:id])
@@ -132,7 +132,7 @@ module Api
 
       desc '更新熊猫出租属性'
       params do
-        use :update_params
+        use :lease_params
       end
       post '/panda/lease_update' do
         panda = ::Panda.find(params[:id])
