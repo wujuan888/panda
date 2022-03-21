@@ -20,6 +20,7 @@ class Dormitory < ApplicationRecord
   has_many :pandas
   has_many :dormitory_records
   has_and_belongs_to_many :users, required: false
+
   scope :with_name, ->(name) { where(name: name) }
 
   after_commit :change_item
