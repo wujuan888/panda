@@ -27,8 +27,8 @@ module Api
 
           params :uuid_genealogy_params do
             requires :uuid, type: String, desc: '用户UUID'
-            requires :father_id, type: Integer, desc: '父亲ID'
-            requires :mother_id, type: Integer, desc: '母亲ID'
+            optional :father_id, type: Integer, desc: '父亲ID'
+            optional :mother_id, type: Integer, desc: '母亲ID'
           end
 
           params :create_params do

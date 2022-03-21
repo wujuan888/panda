@@ -50,8 +50,8 @@ module Api
         use :uuid_genealogy_params
       end
       get '/panda/genealogy' do
-        father = ::Panda.find(params[:father_id])
-        mother = ::Panda.find(params[:mother_id])
+        father = ::Panda.find(params[:father_id]) if params[:father_id].present?
+        mother = ::Panda.find(params[:mother_id]) if params[:mother_id].present?
         data = { father_name: father&.name,
                  mother_name: mother&.name,
                  father_father_name: father&.father&.name,
