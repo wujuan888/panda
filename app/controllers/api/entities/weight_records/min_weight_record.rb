@@ -5,7 +5,7 @@ module Api
     module WeightRecords
       class MinWeightRecord < Grape::Entity
         expose :id, :daily_gain, :weight
-        expose :time, format_with: :only_date
+        expose :created_at, format_with: :localtime
       end
     end
   end
