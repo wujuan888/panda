@@ -34,7 +34,7 @@ class WeightRecord < ApplicationRecord
       init_weight = weight
       init_weight = pre.weight if pre.present?
       if weight_month.blank?
-        weight_month.create(date: "#{time.year}-#{time.month}-01", year: time.year, month: time.month,
+        WeightMonth.create(date: "#{time.year}-#{time.month}-01", year: time.year, month: time.month,
                             init_weight: init_weight, weight: weight_month, add: (weight.to_f - init_weight.to_f).round(2),
                             panda_id: panda_id)
       else
