@@ -6,7 +6,7 @@ module Api
       class MaxParentingRecord < Grape::Entity
         expose :id, :breast_milk, :mental_state
         expose :time, format_with: :datetime
-        expose :created_at, format_with: :datetime
+        expose :created_at, format_with: :localtime
         expose :panda do |instance, _|
           Entities::Pandas::BasePanda.represent instance.panda
         end
