@@ -27,6 +27,18 @@ module Api
         present list: (present list, with: Entities::WeightRecords::MinWeightRecord), response: success_resp
       end
 
+      desc '熊猫体重趋势'
+      params do
+        use :uuid_panda_params
+      end
+      get '/weight_record/list' do
+        list = ::WeightMonth.with_panda(params[:panda_id])\
+                 .with_start_stop_date(params[:start_date], params[:stop_date])
+        data = list.order('date desc').pluck('year', 'month', 'weight', 'add')
+
+        present data: data, response: success_resp
+      end
+
       desc '创建体重记录'
       params do
         use :create_params

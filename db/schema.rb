@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_21_013317) do
+ActiveRecord::Schema.define(version: 2022_03_21_124531) do
 
   create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "panda_id"
@@ -216,6 +216,11 @@ ActiveRecord::Schema.define(version: 2022_03_21_013317) do
     t.string "add", limit: 10, comment: "增长体重"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "init_weight"
+    t.integer "year", comment: "年"
+    t.integer "month", comment: "月"
+    t.index ["panda_id"], name: "index_weight_months_on_panda_id"
+    t.index ["year", "month"], name: "index_weight_months_on_year_and_month"
   end
 
   create_table "weight_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|

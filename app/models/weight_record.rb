@@ -27,6 +27,20 @@ class WeightRecord < ApplicationRecord
 
   def create_item
     panda.update_columns(initial_weight: weight)
+    weight_month = WeightMonth.where(year: time.year, month: time.month)&.last
+    if weight_month.blank?
+      pre_month = time - 1.month
+      pre = WeightMonth.where(year: pre_month.year, month: pre_month.month)&.last
+      init_weight = weight
+      init_weight = pre.weight if pre.present?
+      if weight_month.blank?
+        weight_month.create(date: "#{time.year}-#{time.month}-01", year: time.year, month: time.month,
+                            init_weight: init_weight, weight: weight_month, add: (weight - init_weight),
+                            panda_id: panda_id)
+      else
+        weight_month.update(weight: weight, add: (weight - weight_month.init_weight))
+      end
+    end
   end
 
   scope :with_panda, ->(panda_id) { where(panda_id: panda_id) }
