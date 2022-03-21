@@ -31,6 +31,24 @@ module Api
         expose :mother_mother_name do |instance, _|
           instance.mother_mother&.name
         end
+        expose :father_head_url do |instance, _|
+          instance.father&.head_url
+        end
+        expose :mother_head_url do |instance, _|
+          instance.mother&.head_url
+        end
+        expose :father_father_head_url do |instance, _|
+          instance.father_father&.head_url
+        end
+        expose :father_mother_head_url do |instance, _|
+          instance.father_mother&.head_url
+        end
+        expose :mother_father_head_url do |instance, _|
+          instance.mother_father&.head_url
+        end
+        expose :mother_mother_head_url do |instance, _|
+          instance.mother_mother&.head_url
+        end
       end
     end
   end

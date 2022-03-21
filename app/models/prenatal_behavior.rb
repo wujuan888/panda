@@ -27,5 +27,5 @@ class PrenatalBehavior < ApplicationRecord
   has_many :attachments, as: :item
   scope :with_panda, ->(panda_id) { where(panda_id: panda_id) }
 
-  scope :with_start_stop_date, ->(start, stop) { where('time >= ? and time <= ?', start, Date.parse(stop) + 1.day) }
+  scope :with_start_stop_date, ->(start, stop) { where('behavior_time >= ? and behavior_time <= ?', start, Date.parse(stop) + 1.day) }
 end

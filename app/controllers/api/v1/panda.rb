@@ -57,7 +57,13 @@ module Api
                  father_father_name: father&.father&.name,
                  father_mother_name: father&.mother&.name,
                  mother_father_name: mother&.father&.name,
-                 mother_mother_name: mother&.mother&.name }
+                 mother_mother_name: mother&.mother&.name,
+                 father_head_url: father&.head_url,
+                 mother_head_url: mother&.head_url,
+                 father_father_head_url: father&.father&.head_url,
+                 father_mother_head_url: father&.mother&.head_url,
+                 mother_father_head_url: mother&.father&.head_url,
+                 mother_mother_head_url: mother&.mother&.head_url}
         present data: data, response: success_resp
       end
 

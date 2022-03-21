@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_16_135813) do
+ActiveRecord::Schema.define(version: 2022_03_21_013317) do
 
   create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "panda_id"
@@ -207,6 +207,15 @@ ActiveRecord::Schema.define(version: 2022_03_16_135813) do
     t.index ["phone"], name: "index_users_on_phone"
     t.index ["real_name"], name: "index_users_on_real_name"
     t.index ["uuid"], name: "index_users_on_uuid"
+  end
+
+  create_table "weight_months", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.integer "panda_id", comment: "熊猫"
+    t.datetime "date", comment: "日期"
+    t.string "weight", limit: 10, comment: "体重"
+    t.string "add", limit: 10, comment: "增长体重"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "weight_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
