@@ -22,7 +22,7 @@ module Api
       end
       get '/parenting_record/list' do
         list = ::ParentingRecord.with_panda(params[:panda_id])\
-                 .with_start_stop_date(params[:start_date], params[:stop_date])
+                 .with_start_stop_date(params[:start_date], params[:stop_date]).order('time desc')
 
         present list: (present list, with: Entities::ParentingRecords::MinParentingRecord), response: success_resp
       end

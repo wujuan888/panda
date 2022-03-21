@@ -22,7 +22,7 @@ module Api
       end
       get '/weight_record/list' do
         list = ::WeightRecord.with_panda(params[:panda_id])\
-                 .with_start_stop_date(params[:start_date], params[:stop_date])
+                 .with_start_stop_date(params[:start_date], params[:stop_date]).order('time desc')
 
         present list: (present list, with: Entities::WeightRecords::MinWeightRecord), response: success_resp
       end

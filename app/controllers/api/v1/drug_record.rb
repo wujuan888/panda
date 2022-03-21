@@ -21,7 +21,7 @@ module Api
         use :uuid_panda_params
       end
       get '/drug_record/list' do
-        list = ::DrugRecord.with_panda(params[:panda_id]).with_start_stop_date(params[:start_date], params[:stop_date])
+        list = ::DrugRecord.with_panda(params[:panda_id]).with_start_stop_date(params[:start_date], params[:stop_date]).order('time desc')
 
         present list: (present list, with: Entities::DrugRecords::MinDrugRecord), response: success_resp
       end
