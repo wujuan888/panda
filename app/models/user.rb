@@ -30,7 +30,7 @@ class User < ApplicationRecord
   end
 
   def self.roles
-    [['管理员', 0], ['饲养员', 1], ['兽医', 2]]
+    [['管理员', 0], ['饲养员', 1], ['兽医', 2], ['超级管理员', 3]]
   end
 
   def self.states_names
@@ -42,6 +42,7 @@ class User < ApplicationRecord
   end
 
   scope :with_states, ->(states) { where(states: states) }
+  scope :with_role, ->(role) { where(role: role) }
   scope :with_role_pass, ->(role) { where(role: role, states: :pass) }
   scope :with_openid, ->(openid) { where(openid: openid) }
   scope :with_name_phone, ->(name, phone) { where(name: name, phone: phone) }
