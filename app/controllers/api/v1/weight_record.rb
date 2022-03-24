@@ -37,7 +37,7 @@ module Api
                  .with_start_stop_date(params[:start_date], params[:stop_date])
         weight_change_list = weight_year_list(list)
 
-        present weight_change_list: weight_change_list, response: success_resp
+        present list: weight_change_list, response: success_resp
       end
 
       desc '创建体重记录'
