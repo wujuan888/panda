@@ -11,6 +11,7 @@ module Api
       version 'v1', using: :path
 
       helpers Api::Helpers::V1::WeightRecord::ParamsHelpers
+      helpers Api::Helpers::V1::WeightRecord::MethodHelpers
 
       before do
         auth_user
@@ -31,12 +32,12 @@ module Api
       params do
         use :uuid_panda_params
       end
-      get '/weight_record/list' do
+      get '/weight_record/change_list' do
         list = ::WeightMonth.with_panda(params[:panda_id])\
                  .with_start_stop_date(params[:start_date], params[:stop_date])
-        data = list.order('date desc').pluck('year', 'month', 'weight', 'add')
+        weight_change_list = weight_year_list(list)
 
-        present data: data, response: success_resp
+        present weight_change_list: weight_change_list, response: success_resp
       end
 
       desc '创建体重记录'
