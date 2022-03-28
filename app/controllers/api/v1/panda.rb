@@ -33,7 +33,7 @@ module Api
       end
       get '/panda/father_list' do
         pandas = ::Panda.with_gender(1)
-        pandas = pandas.with_not(param[:panda_id]) if param[:panda_id].present?
+        pandas = pandas.with_not(params[:panda_id]) if params[:panda_id].present?
 
         present pandas: (present pandas, with: Entities::Pandas::MinPanda), response: success_resp
       end
@@ -44,7 +44,7 @@ module Api
       end
       get '/panda/mother_list' do
         pandas = ::Panda.with_gender(2)
-        pandas = pandas.with_not(param[:panda_id]) if param[:panda_id].present?
+        pandas = pandas.with_not(params[:panda_id]) if params[:panda_id].present?
 
         present pandas: (present pandas, with: Entities::Pandas::MinPanda), response: success_resp
       end
