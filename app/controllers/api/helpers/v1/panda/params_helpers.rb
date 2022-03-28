@@ -11,6 +11,11 @@ module Api
             requires :uuid, type: String, desc: '用户UUID'
           end
 
+          params :uuid_father_params do
+            requires :uuid, type: String, desc: '用户UUID'
+            optional :pande_id, type: Integer, desc: '熊猫ID'
+          end
+
           params :uuid_search_params do
             requires :uuid, type: String, desc: '用户UUID'
             optional :name_cont, type: String, desc: '姓名'
