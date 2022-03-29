@@ -5,7 +5,7 @@ module Api
     module FeedingRecords
       class MinFeedingRecord < Grape::Entity
         expose :id, :evaluation
-        expose :time, format_with: :datetime
+        expose :time, format_with: :localtime
       end
     end
   end
