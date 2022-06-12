@@ -13,6 +13,7 @@ module Api
             requires :role, type: Integer, desc: '0：管理员 1：饲养员，2：兽医'
             requires :phone, type: String, desc: '手机号'
             requires :head_url, type: String, desc: '头像'
+            optional :role_remark, type: String, desc: '职务备注'
           end
 
           params :new_data do
@@ -20,6 +21,7 @@ module Api
             requires :role, type: Integer, desc: '0：管理员 1：饲养员，2：兽医'
             requires :phone, type: String, desc: '手机号'
             requires :head_url, type: String, desc: '头像'
+            optional :role_remark, type: String, desc: '职务备注'
           end
 
           params :update_data do
@@ -28,6 +30,7 @@ module Api
             requires :real_name, type: String, desc: '用户的真实姓名'
             requires :phone, type: String, desc: '手机号'
             requires :head_url, type: String, desc: '头像'
+            optional :role_remark, type: String, desc: '职务备注'
             requires :is_on_job, type: Boolean, desc: '在职状态'
           end
 

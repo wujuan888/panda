@@ -2,8 +2,14 @@
 
 module Api
   module Entities
-    class Drug < Grape::Entity
-      expose :name
+    module Drug
+      class Data < Grape::Entity
+        expose :name
+      end
+
+      class MaxData < Grape::Entity
+        expose :name, :drug_type, :id
+      end
     end
   end
 end

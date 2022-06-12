@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_21_124531) do
+ActiveRecord::Schema.define(version: 2022_06_12_060514) do
 
   create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "panda_id"
@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(version: 2022_03_21_124531) do
     t.integer "age", default: 0, comment: "年龄"
     t.string "month_day", limit: 4
     t.integer "year", default: 0
+    t.boolean "is_delete", default: false
     t.index ["name"], name: "index_pandas_on_name"
   end
 
@@ -203,6 +204,7 @@ ActiveRecord::Schema.define(version: 2022_03_21_124531) do
     t.integer "states", default: 0, comment: "0：申请中 1：申请通过 2：申请失败 3：离职"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "role_remark", limit: 50
     t.index ["openid"], name: "index_users_on_openid"
     t.index ["phone"], name: "index_users_on_phone"
     t.index ["real_name"], name: "index_users_on_real_name"

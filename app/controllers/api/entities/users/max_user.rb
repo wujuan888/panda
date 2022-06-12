@@ -5,7 +5,7 @@ module Api
     module Users
       class MaxUser < Grape::Entity
         expose :id, :uuid, :real_name, :head_url, :phone
-        expose :role
+        expose :role, :role_remark
         expose :role_name do |instance, _|
           ::User.roles[instance.role][0]
         end

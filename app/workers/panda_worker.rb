@@ -18,9 +18,11 @@ class PandaWorker
   # type 30  熊猫生病
   # content  flag
   #
-  #
-
-
+  # type 40  删除熊猫
+  # content  gender
+  #          is_ill
+  #          is_lease
+  #          is_pregnant
   def perform(type, content)
     puts "PandaWorker::perform type:#{type} content:#{content}"
     case type
@@ -75,7 +77,6 @@ class PandaWorker
         end
         record.save!
       end
-
     when 30
       record = PandaRecord.last
       record = PandaRecord.create if record.blank?
@@ -84,6 +85,21 @@ class PandaWorker
           record.ill_count += 1
         else
           record.ill_count -= 1
+        end
+        record.save!
+      end
+    when 40
+      record = PandaRecord.last
+      record = PandaRecord.create if record.blank?
+      record.with_lock do
+        record.count -= 1
+        record.ill_count -= 1 if content['is_ill']
+        record.pregnant_count -= 1 if content['is_pregnant']
+        record.lease_count -= 1 if content['is_lease']
+        if content['gender'].to_i == 1
+          record.f_count -= 1
+        else
+          record.m_count -= 1
         end
         record.save!
       end

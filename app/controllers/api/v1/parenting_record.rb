@@ -32,7 +32,7 @@ module Api
         use :uuid_params
       end
       get '/parenting_record/drug_list' do
-        present drug_list: (present ::Drug.with_type(1), with: Entities::Drug), response: success_resp
+        present drug_list: (present ::Drug.with_type(1), with: Entities::Drug::Data), response: success_resp
       end
 
       desc '创建育幼记录'

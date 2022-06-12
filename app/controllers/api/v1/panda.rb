@@ -22,7 +22,7 @@ module Api
         use :uuid_search_params
       end
       get '/panda/list' do
-        pandas = ::Panda.ransack(params.except(:uuid)).result
+        pandas = ::Panda.with_not_delete.ransack(params.except(:uuid)).result
 
         present pandas: (present pandas, with: Entities::Pandas::MinPanda), response: success_resp
       end
@@ -32,7 +32,7 @@ module Api
         use :uuid_father_params
       end
       get '/panda/father_list' do
-        pandas = ::Panda.with_gender(1)
+        pandas = ::Panda.with_not_delete.with_gender(1)
         pandas = pandas.with_not(params[:panda_id]) if params[:panda_id].present?
 
         present pandas: (present pandas, with: Entities::Pandas::MinPanda), response: success_resp
@@ -43,7 +43,7 @@ module Api
         use :uuid_father_params
       end
       get '/panda/mother_list' do
-        pandas = ::Panda.with_gender(2)
+        pandas = ::Panda.with_not_delete.with_gender(2)
         pandas = pandas.with_not(params[:panda_id]) if params[:panda_id].present?
 
         present pandas: (present pandas, with: Entities::Pandas::MinPanda), response: success_resp
@@ -106,6 +106,20 @@ module Api
         change_panda(panda.dormitory_id, params[:dormitory_id])
         panda.update(params.except(:uuid, :id))
         PandaWorker.perform_async(1, { gender: panda.gender, old_gender: old_gender }) if panda.gender != old_gender
+
+        present response: success_resp
+      end
+
+      desc '删除熊猫'
+      params do
+        use :uuid_id_params
+      end
+      get '/panda/delete' do
+        panda = ::Panda.find(params[:id])
+        dormitory_pull(panda.dormitory_id)
+        panda.update_columns(is_delete: true)
+        content = { gender: panda.gender, is_ill: panda.is_ill, is_lease: panda.is_lease, is_pregnant: panda.is_pregnant }
+        PandaWorker.perform_async(40, content)
 
         present response: success_resp
       end

@@ -8,6 +8,7 @@
 #  gender(0：未知 1：雄性 2：雌性) :integer          default(0)
 #  head_url                        :string(255)
 #  initial_weight(初始体重)        :string(10)
+#  is_delete                       :boolean          default(FALSE)
 #  is_ill(是否生病)                :boolean          default(FALSE)
 #  is_lease(是否租借)              :boolean          default(FALSE)
 #  is_pregnant(是否怀孕)           :boolean          default(FALSE)

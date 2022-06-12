@@ -13,6 +13,8 @@ module  Api
       mount Api::V1::ParentingRecord
       mount Api::V1::PrenatalBehavior
       mount Api::V1::WeightRecord
+      mount Api::V1::Bamboo
+      mount Api::V1::Drug
     end
   end
 end

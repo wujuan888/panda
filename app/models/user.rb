@@ -9,6 +9,7 @@
 #  phone                                             :string(11)
 #  real_name(用户的真实姓名)                         :string(10)
 #  role(0：管理员 1：饲养员，2：兽医)                :integer          default(0)
+#  role_remark                                       :string(50)
 #  states(0：申请中 1：申请通过 2：申请失败 3：离职) :integer          default("init")
 #  uuid                                              :string(32)
 #  created_at                                        :datetime         not null

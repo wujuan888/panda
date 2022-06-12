@@ -2,8 +2,14 @@
 
 module Api
   module Entities
-    class Bamboo < Grape::Entity
-      expose :name
+    module Bamboo
+      class MaxData < Grape::Entity
+        expose :name, :id
+      end
+
+      class Data < Grape::Entity
+        expose :name
+      end
     end
   end
 end
