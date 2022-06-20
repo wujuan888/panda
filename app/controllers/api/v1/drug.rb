@@ -18,10 +18,12 @@ module Api
 
       desc '药品列表'
       params do
-        use :uuid_params
+        use :uuid_search_params
       end
       get '/drug/list' do
-        present drugs: (present ::Drug.all, with: Entities::Drug::MaxData), response: success_resp
+        drugs = ::Drug.all.ransack(params.except(:uuid)).result
+
+        present bamboos: (present drugs, with: Entities::Drug::MaxData), response: success_resp
       end
 
       desc '新建药品'
@@ -54,6 +56,17 @@ module Api
       post '/drug/update' do
         drug = ::Drug.find(params[:id])
         drug.update(params.except(:uuid, :id))
+
+        present response: success_resp
+      end
+
+      desc '删除药品'
+      params do
+        use :uuid_id_params
+      end
+      get '/drug/delete' do
+        drug = ::Drug.find(params[:id])
+        drug.delete
 
         present response: success_resp
       end

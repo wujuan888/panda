@@ -44,6 +44,11 @@ module Api
             requires :uuid, type: String, desc: '用户UUID'
           end
 
+          params :uuid_search_params do
+            requires :uuid, type: String, desc: '用户UUID'
+            optional :real_name_or_phone_cont, type: String, desc: '名称'
+          end
+
           params :breeder_data do
             requires :uuid, type: String, desc: '用户UUID'
             optional :real_name_or_phone_cont, type: String, desc: '姓名或手机号'

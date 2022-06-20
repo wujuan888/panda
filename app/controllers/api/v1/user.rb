@@ -110,13 +110,13 @@ module Api
 
       desc '获取用户'
       params do
-        use :uuid_data
+        use :uuid_search_params
       end
       get '/user/list' do
         auth_user
         role_arr = [1, 2]
         role_arr.push 0 if current_user.role == 3
-        users = ::User.with_states([:pass, :resign]).with_role(role_arr).order('states asc')
+        users = ::User.with_states([:pass, :resign]).with_role(role_arr).order('states asc').ransack(params.except(:uuid)).result
 
         present users: (present users, with: Entities::Users::MaxUser), response: success_resp
       end

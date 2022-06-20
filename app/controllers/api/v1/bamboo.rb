@@ -18,10 +18,12 @@ module Api
 
       desc '竹子列表'
       params do
-        use :uuid_params
+        use :uuid_search_params
       end
       get '/bamboo/list' do
-        present bamboos: (present ::Bamboo.all, with: Entities::Bamboo::MaxData), response: success_resp
+        bamboos = ::Bamboo.all.ransack(params.except(:uuid)).result
+
+        present bamboos: (present bamboos, with: Entities::Bamboo::MaxData), response: success_resp
       end
 
       desc '新建竹子'
@@ -54,6 +56,17 @@ module Api
       post '/bamboo/update' do
         bamboo = ::Bamboo.find(params[:id])
         bamboo.update(params.except(:uuid, :id))
+
+        present response: success_resp
+      end
+
+      desc '删除竹子'
+      params do
+        use :uuid_id_params
+      end
+      get '/bamboo/delete' do
+        bamboo = ::Bamboo.find(params[:id])
+        bamboo.delete
 
         present response: success_resp
       end
