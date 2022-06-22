@@ -23,7 +23,7 @@ module Api
       get '/drug/list' do
         drugs = ::Drug.all.ransack(params.except(:uuid)).result
 
-        present bamboos: (present drugs, with: Entities::Drug::MaxData), response: success_resp
+        present drugs: (present drugs, with: Entities::Drug::MaxData), response: success_resp
       end
 
       desc '新建药品'
@@ -31,7 +31,7 @@ module Api
         use :create_params
       end
       post '/drug/create' do
-        drugs = ::Drug.with_name(params[:name])
+        drugs = ::Drug.with_name_type(params[:name], params[:drug_type])
         return { response: err_resp(ERR_CODE[:POP_UP], '该药品名已存在') } if drugs.present?
 
         ::Drug.create(params.except(:uuid))

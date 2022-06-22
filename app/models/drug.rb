@@ -10,4 +10,5 @@
 #
 class Drug < ApplicationRecord
   scope :with_type, ->(drug_type) { where(drug_type: drug_type) }
+  scope :with_name_type, ->(name, drug_type) { where(name: name, drug_type: drug_type) }
 end
