@@ -20,6 +20,7 @@ module Api
             requires :uuid, type: String, desc: '用户UUID'
             optional :name_cont, type: String, desc: '姓名'
             optional :gender_eq, type: Integer, values: [1, 2], desc: '性别'
+            optional :pedigree_number_cont, type: String, desc: '谱系号'
             optional :is_ill_eq, type: Boolean, desc: '生病'
             optional :is_pregnant_eq, type: Boolean, desc: '怀孕'
             optional :is_lease_eq, type: Boolean, desc: '出租'
