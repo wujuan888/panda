@@ -47,6 +47,7 @@ module Api
             optional :mother_id, type: Integer, desc: '母亲ID'
             optional :father_id, type: Integer, desc: '父亲ID'
             optional :dormitory_id, type: Integer, desc: '宿舍ID'
+            optional :head_url, type: Integer, desc: '头像'
             optional :remark, type: String, desc: '备注'
           end
 

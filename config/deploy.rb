@@ -7,7 +7,7 @@ require 'mina_sidekiq/tasks'
 
 set :deploy_to, '/data/project/panda'
 
-set :repository, 'git@github.com:wujuan888/panda.git'
+set :repository, 'git@github.com-repo-0:wujuan888/panda.git'
 
 set :shared_paths, %w(config/database.yml config/yetting.yml log)
 # 设置git地址及分支
