@@ -7,7 +7,10 @@ module  Api
     class Mount < Grape::API
       mount Api::V1::User
       mount Api::V1::Panda
+      mount Api::V1::Place
+      mount Api::V1::District
       mount Api::V1::Dormitory
+      mount Api::V1::Room
       mount Api::V1::DrugRecord
       mount Api::V1::FeedingRecord
       mount Api::V1::ParentingRecord

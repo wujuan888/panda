@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_12_060514) do
+ActiveRecord::Schema.define(version: 2022_11_25_022456) do
 
   create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "panda_id"
@@ -30,6 +30,39 @@ ActiveRecord::Schema.define(version: 2022_06_12_060514) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "behavior_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.integer "panda_id"
+    t.integer "feeding_record_id"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["feeding_record_id"], name: "index_behavior_records_on_feeding_record_id"
+    t.index ["panda_id"], name: "index_behavior_records_on_panda_id"
+  end
+
+  create_table "com_evaluation_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.integer "panda_id"
+    t.integer "feeding_record_id"
+    t.string "collection", limit: 100, comment: "采集情况"
+    t.string "spiritual", limit: 100, comment: "精神情况"
+    t.string "other", limit: 100, comment: "其它情况"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["feeding_record_id"], name: "index_com_evaluation_records_on_feeding_record_id"
+    t.index ["panda_id"], name: "index_com_evaluation_records_on_panda_id"
+  end
+
+  create_table "districts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.integer "place_id"
+    t.integer "user_id"
+    t.string "name", limit: 100
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_delete", default: false, comment: "删除"
+    t.index ["name"], name: "index_districts_on_name"
+    t.index ["place_id"], name: "index_districts_on_place_id"
+  end
+
   create_table "dormitories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "name", limit: 30
     t.string "address", limit: 20, comment: "地址"
@@ -38,7 +71,11 @@ ActiveRecord::Schema.define(version: 2022_06_12_060514) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "panda_count", default: 0, comment: "熊猫数量"
+    t.integer "place_id"
+    t.integer "district_id"
+    t.boolean "is_delete", default: false, comment: "删除"
     t.index ["name"], name: "index_dormitories_on_name"
+    t.index ["place_id", "district_id"], name: "place"
   end
 
   create_table "dormitories_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
@@ -80,6 +117,38 @@ ActiveRecord::Schema.define(version: 2022_06_12_060514) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "eat_other_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.integer "panda_id"
+    t.integer "feeding_record_id"
+    t.string "name", limit: 100
+    t.string "amount", limit: 20
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["feeding_record_id"], name: "index_eat_other_records_on_feeding_record_id"
+    t.index ["panda_id"], name: "index_eat_other_records_on_panda_id"
+  end
+
+  create_table "eat_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.integer "panda_id"
+    t.integer "feeding_record_id"
+    t.string "name", limit: 100
+    t.string "amount", limit: 20
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["feeding_record_id"], name: "index_eat_records_on_feeding_record_id"
+    t.index ["panda_id"], name: "index_eat_records_on_panda_id"
+  end
+
+  create_table "enrichment_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.integer "panda_id"
+    t.integer "feeding_record_id"
+    t.string "name", limit: 50
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["feeding_record_id"], name: "index_enrichment_records_on_feeding_record_id"
+    t.index ["panda_id"], name: "index_enrichment_records_on_panda_id"
+  end
+
   create_table "feeding_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "user_id", comment: "记录人"
     t.integer "panda_id", comment: "熊猫"
@@ -111,6 +180,20 @@ ActiveRecord::Schema.define(version: 2022_06_12_060514) do
     t.index ["user_id"], name: "index_feeding_records_on_user_id"
   end
 
+  create_table "mucus_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.integer "panda_id"
+    t.integer "feeding_record_id"
+    t.string "texture", limit: 30, comment: "粘液质地"
+    t.string "pain", limit: 30, comment: "粘液痛感"
+    t.string "color", limit: 20, comment: "粘液颜色"
+    t.string "quality", limit: 10, comment: "粘液质量"
+    t.datetime "record_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["feeding_record_id"], name: "index_mucus_records_on_feeding_record_id"
+    t.index ["panda_id"], name: "index_mucus_records_on_panda_id"
+  end
+
   create_table "panda_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "count", default: 0, comment: "熊猫总数量"
     t.integer "f_count", default: 0, comment: "雄性数量"
@@ -120,6 +203,11 @@ ActiveRecord::Schema.define(version: 2022_06_12_060514) do
     t.integer "lease_count", default: 0, comment: "租借数量"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "place_id"
+    t.integer "pei_zhong_count", default: 0, comment: "配种数量"
+    t.integer "fa_qin_count", default: 0, comment: "发情数量"
+    t.integer "dai_zai_count", default: 0, comment: "带仔数量"
+    t.integer "feed_type", default: 0, comment: "饲养类型： 0： 育幼  1：饲养"
   end
 
   create_table "pandas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
@@ -147,6 +235,11 @@ ActiveRecord::Schema.define(version: 2022_06_12_060514) do
     t.string "month_day", limit: 4
     t.integer "year", default: 0
     t.boolean "is_delete", default: false
+    t.boolean "is_death", default: false, comment: "是否死亡"
+    t.string "states", limit: 100, comment: "特殊状态"
+    t.integer "place_id"
+    t.integer "district_id"
+    t.integer "room_id"
     t.index ["name"], name: "index_pandas_on_name"
   end
 
@@ -169,6 +262,27 @@ ActiveRecord::Schema.define(version: 2022_06_12_060514) do
     t.index ["user_id"], name: "index_parenting_records_on_user_id"
   end
 
+  create_table "places", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "name", limit: 100
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_places_on_name"
+  end
+
+  create_table "poop_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.integer "panda_id"
+    t.integer "feeding_record_id"
+    t.string "texture", limit: 50, comment: "大便质地"
+    t.string "element", limit: 50, comment: "大便成分"
+    t.string "color", limit: 30, comment: "大便颜色"
+    t.string "quality", limit: 20, comment: "大便质量"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["feeding_record_id"], name: "index_poop_records_on_feeding_record_id"
+    t.index ["panda_id"], name: "index_poop_records_on_panda_id"
+  end
+
   create_table "prenatal_behaviors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "user_id", comment: "记录人"
     t.integer "panda_id", comment: "熊猫"
@@ -186,11 +300,50 @@ ActiveRecord::Schema.define(version: 2022_06_12_060514) do
     t.index ["user_id"], name: "index_prenatal_behaviors_on_user_id"
   end
 
+  create_table "rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.integer "place_id"
+    t.integer "user_id"
+    t.integer "district_id"
+    t.integer "dormitory_id"
+    t.string "name", limit: 500
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_delete", default: false, comment: "删除"
+    t.index ["name"], name: "index_rooms_on_name"
+    t.index ["place_id", "district_id", "dormitory_id"], name: "place"
+  end
+
+  create_table "states_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.integer "panda_id"
+    t.integer "feeding_record_id"
+    t.string "name"
+    t.date "start_date"
+    t.date "stop_date"
+    t.string "district", limit: 100, comment: "地区"
+    t.string "institution", limit: 100, comment: "机构"
+    t.boolean "is_stop", default: false, comment: "是否结束"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["feeding_record_id"], name: "index_states_records_on_feeding_record_id"
+    t.index ["panda_id"], name: "index_states_records_on_panda_id"
+  end
+
   create_table "table_drugs_drug_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.bigint "drug_id"
     t.bigint "drug_record_id"
     t.index ["drug_id"], name: "index_table_drugs_drug_records_on_drug_id"
     t.index ["drug_record_id"], name: "index_table_drugs_drug_records_on_drug_record_id"
+  end
+
+  create_table "train_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.integer "panda_id"
+    t.integer "feeding_record_id"
+    t.string "name", limit: 20
+    t.integer "result", default: 0, comment: "训练结果"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["feeding_record_id"], name: "index_train_records_on_feeding_record_id"
+    t.index ["panda_id"], name: "index_train_records_on_panda_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|

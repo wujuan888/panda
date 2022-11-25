@@ -1,0 +1,20 @@
+# == Schema Information
+#
+# Table name: behavior_records
+#
+#  id                :bigint           not null, primary key
+#  name              :string(255)
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  feeding_record_id :integer
+#  panda_id          :integer
+#
+# Indexes
+#
+#  index_behavior_records_on_feeding_record_id  (feeding_record_id)
+#  index_behavior_records_on_panda_id           (panda_id)
+#
+class BehaviorRecord < ApplicationRecord
+  belongs_to :panda
+  belongs_to :feeding_record
+end
