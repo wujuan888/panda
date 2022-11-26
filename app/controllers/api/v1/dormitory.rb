@@ -15,6 +15,54 @@ module Api
         auth_user
       end
 
+      desc '兽舍入住列表'
+      params do
+        use :uuid_place_params
+      end
+      get '/dormitory/check_in_list' do
+        dormitory_list = if params[:place_id].to_i.zero?
+                           ::Dormitory.with_delete(false)
+                         else
+                           ::Dormitory.with_place(params[:place_id]).with_delete(false)
+                         end
+        present dormitories: (present dormitory_list, with: Entities::Dormitories::MaxDormitory),
+                response: success_resp
+      end
+
+      desc '兽舍入住详情'
+      params do
+        use :uuid_id_params
+      end
+      get '/dormitory/panda_list' do
+        dormitory_list = if params[:place_id].to_i.zero?
+                           ::Dormitory.with_delete(false)
+                         else
+                           ::Dormitory.with_place(params[:place_id]).with_delete(false)
+                         end
+        present dormitories: (present dormitory_list, with: Entities::Dormitories::MaxDormitory),
+                response: success_resp
+      end
+
+      desc '兽舍熊猫迁移'
+      params do
+        use :transfer_params
+      end
+      post '/dormitory/panda_transfer' do
+        panda = ::Panda.find(params[:id])
+        panda.update(params.except(:id))
+        present response: success_resp
+      end
+
+      desc '兽舍熊猫入住'
+      params do
+        use :transfer_params
+      end
+      post '/dormitory/panda_transfer' do
+        panda = ::Panda.find(params[:id])
+        panda.update(params.except(:id))
+        present response: success_resp
+      end
+
       desc '兽舍列表'
       params do
         use :uuid_district_params

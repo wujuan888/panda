@@ -5,6 +5,9 @@ module Api
     module Pandas
       class BasePanda < Grape::Entity
         expose :id, :name, :age, :gender, :dormitory_id, :head_url, :pedigree_number
+        expose :age_str do |instance, _|
+          instance.age_string
+        end
         expose :dormitory_name do |instance, _|
           instance.dormitory&.name
         end

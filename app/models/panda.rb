@@ -71,6 +71,22 @@ class Panda < ApplicationRecord
     update_columns(age: age, year: year, month_day: month)
   end
 
+  def age_string
+    if birth_date.blank?
+      ''
+    elsif age.positive?
+      "#{age}岁"
+    else
+      days = (Date.today - birth_date).to_i
+      if days > 30
+        "#{days / 30}个月"
+      elsif days > 7
+        "#{days / 7}周"
+      else
+        "#{days}天"
+      end
+    end
+  end
 
   scope :with_dormitory, ->(dormitory) { where(dormitory_id: dormitory) }
   scope :with_gender, ->(gender) { where(gender: gender) }

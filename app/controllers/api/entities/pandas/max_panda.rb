@@ -5,6 +5,9 @@ module Api
     module Pandas
       class MaxPanda < Grape::Entity
         expose :id, :name, :gender, :age, :dormitory_id, :head_url, :pedigree_number
+        expose :age_str do |instance, _|
+          instance.age_string
+        end
         expose :is_ill, :is_lease, :is_pregnant, :birth_date, :remark, :initial_weight
         expose :father_id, :mother_id
         expose :gender_name do |instance, _|

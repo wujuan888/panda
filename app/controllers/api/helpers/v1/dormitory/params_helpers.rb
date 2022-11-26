@@ -34,6 +34,15 @@ module Api
             use :create_params
           end
 
+          params :transfer_params do
+            requires :uuid, type: String, desc: '用户UUID'
+            requires :panda_id, type: String, desc: '名称'
+            requires :place_id, type: Integer, desc: '场所ID（基地、卧龙。。。）'
+            requires :district_id, type: Integer, desc: '区域ID'
+            requires :dormitory_id, type: Integer, desc: '兽舍ID'
+            requires :room_id, type: Integer, desc: '房间ID'
+          end
+
         end
       end
     end
