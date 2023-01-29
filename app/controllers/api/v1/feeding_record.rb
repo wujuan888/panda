@@ -30,7 +30,7 @@ module Api
         use :uuid_time_params
       end
       get '/feeding_record/time_record' do
-        date_record = params[:date].delete('.')
+        date_record = params[:date].delete('-')
         record = ::FeedingRecord.with_panda(params[:panda_id]).with_date_record(date_record).last
         feeding_record = if record.present?
                            present record, with: Entities::FeedingRecords::MaxFeedingRecord
@@ -110,7 +110,7 @@ module Api
       end
       get '/feeding_record/com_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
-                              .with_start_stop_date(params[:start_date].delete('.'), params[:stop_date].delete('-')).order('time desc')
+                              .with_start_stop_date(params[:start_date].delete('-'), params[:stop_date].delete('-')).order('time desc')
 
         present list: (present list, with: Entities::FeedingRecords::ComEvaluationRecord), response: success_resp
       end
@@ -121,7 +121,7 @@ module Api
       end
       get '/feeding_record/weight_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
-                              .with_start_stop_date(params[:start_date].delete('.'), params[:stop_date].delete('-')).order('time desc')
+                              .with_start_stop_date(params[:start_date].delete('-'), params[:stop_date].delete('-')).order('time desc')
 
         present list: (present list, with: Entities::FeedingRecords::WeightRecord), response: success_resp
       end
@@ -132,7 +132,7 @@ module Api
       end
       get '/feeding_record/poop_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
-                              .with_start_stop_date(params[:start_date].delete('.'), params[:stop_date].delete('-')).order('time desc')
+                              .with_start_stop_date(params[:start_date].delete('-'), params[:stop_date].delete('-')).order('time desc')
 
         present list: (present list, with: Entities::FeedingRecords::PoopRecord), response: success_resp
       end
@@ -143,7 +143,7 @@ module Api
       end
       get '/feeding_record/mucus_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
-                              .with_start_stop_date(params[:start_date].delete('.'), params[:stop_date].delete('-')).order('time desc')
+                              .with_start_stop_date(params[:start_date].delete('-'), params[:stop_date].delete('-')).order('time desc')
 
         present list: (present list, with: Entities::FeedingRecords::MucusRecord), response: success_resp
       end
@@ -154,7 +154,7 @@ module Api
       end
       get '/feeding_record/drug_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
-                              .with_start_stop_date(params[:start_date].delete('.'), params[:stop_date].delete('-')).order('time desc')
+                              .with_start_stop_date(params[:start_date].delete('-'), params[:stop_date].delete('-')).order('time desc')
 
         present list: (present list, with: Entities::FeedingRecords::DrugRecord), response: success_resp
       end
@@ -165,7 +165,7 @@ module Api
       end
       get '/feeding_record/enrichment_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
-                              .with_start_stop_date(params[:start_date].delete('.'), params[:stop_date].delete('-')).order('time desc')
+                              .with_start_stop_date(params[:start_date].delete('-'), params[:stop_date].delete('-')).order('time desc')
 
         present list: (present list, with: Entities::FeedingRecords::EnrichmentRecord), response: success_resp
       end
@@ -176,7 +176,7 @@ module Api
       end
       get '/feeding_record/train_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
-                              .with_start_stop_date(params[:start_date].delete('.'), params[:stop_date].delete('-')).order('time desc')
+                              .with_start_stop_date(params[:start_date].delete('-'), params[:stop_date].delete('-')).order('time desc')
 
         present list: (present list, with: Entities::FeedingRecords::TrainRecord), response: success_resp
       end
@@ -187,7 +187,7 @@ module Api
       end
       get '/feeding_record/behavior_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
-                              .with_start_stop_date(params[:start_date].delete('.'), params[:stop_date].delete('-')).order('time desc')
+                              .with_start_stop_date(params[:start_date].delete('-'), params[:stop_date].delete('-')).order('time desc')
 
         present list: (present list, with: Entities::FeedingRecords::BehaviorRecord), response: success_resp
       end
@@ -198,7 +198,7 @@ module Api
       end
       get '/feeding_record/states_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
-                              .with_start_stop_date(params[:start_date].delete('.'), params[:stop_date].delete('-')).order('time desc')
+                              .with_start_stop_date(params[:start_date].delete('-'), params[:stop_date].delete('-')).order('time desc')
 
         present list: (present list, with: Entities::FeedingRecords::StatesRecord), response: success_resp
       end
@@ -209,7 +209,7 @@ module Api
       end
       get '/feeding_record/milk_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
-                              .with_start_stop_date(params[:start_date].delete('.'), params[:stop_date].delete('-')).order('time desc')
+                              .with_start_stop_date(params[:start_date].delete('-'), params[:stop_date].delete('-')).order('time desc')
 
         present list: (present list, with: Entities::FeedingRecords::MilkRecord), response: success_resp
       end
@@ -220,7 +220,7 @@ module Api
       end
       get '/feeding_record/temperature_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
-                              .with_start_stop_date(params[:start_date].delete('.'), params[:stop_date].delete('-')).order('time desc')
+                              .with_start_stop_date(params[:start_date].delete('-'), params[:stop_date].delete('-')).order('time desc')
 
         present list: (present list, with: Entities::FeedingRecords::TemperatureRecord), response: success_resp
       end
