@@ -18,4 +18,5 @@
 class TrainRecord < ApplicationRecord
   belongs_to :panda
   belongs_to :feeding_record
+  scope :with_id, ->(ids) { where(id: ids) }
 end

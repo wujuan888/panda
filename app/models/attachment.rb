@@ -18,4 +18,7 @@
 #
 class Attachment < ApplicationRecord
   belongs_to :item, polymorphic: true
+
+  scope :with_item, ->(item_id, item_type) { where(item_id: item_id, item_type: item_type) }
+
 end

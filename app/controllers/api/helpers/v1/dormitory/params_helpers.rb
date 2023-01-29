@@ -36,11 +36,18 @@ module Api
 
           params :transfer_params do
             requires :uuid, type: String, desc: '用户UUID'
-            requires :panda_id, type: String, desc: '名称'
+            requires :panda_id, type: String, desc: '熊猫ID'
             requires :place_id, type: Integer, desc: '场所ID（基地、卧龙。。。）'
             requires :district_id, type: Integer, desc: '区域ID'
             requires :dormitory_id, type: Integer, desc: '兽舍ID'
-            requires :room_id, type: Integer, desc: '房间ID'
+            optional :room_id, type: Integer, desc: '房间ID'
+          end
+
+          params :check_in_params do
+            requires :uuid, type: String, desc: '用户UUID'
+            requires :panda_ids, type: Array[Integer], desc: '熊猫ID'
+            requires :dormitory_id, type: Integer, desc: '兽舍ID'
+            optional :room_id, type: Integer, desc: '房间ID'
           end
 
         end

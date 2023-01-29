@@ -19,4 +19,11 @@
 class ComEvaluationRecord < ApplicationRecord
   belongs_to :panda
   belongs_to :feeding_record
+
+  after_create :create_item
+
+  def create_item
+    is_input = collection.present? || spiritual.present? || other.present?
+    update_columns(is_input: is_input)
+  end
 end

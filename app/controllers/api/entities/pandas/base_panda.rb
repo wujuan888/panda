@@ -4,14 +4,15 @@ module Api
   module Entities
     module Pandas
       class BasePanda < Grape::Entity
-        expose :id, :name, :age, :gender, :dormitory_id, :head_url, :pedigree_number
+        expose :id, :name, :age, :gender, :head_url, :pedigree_number, :states, :feed_type
+        expose :place_id, :district_id, :dormitory_id, :room_id
+        expose :dormitory_name do |instance, _|
+          instance.dormitory_name
+        end
         expose :age_str do |instance, _|
           instance.age_string
         end
-        expose :dormitory_name do |instance, _|
-          instance.dormitory&.name
-        end
-        expose :is_ill, :is_lease, :is_pregnant
+
         expose :father_name do |instance, _|
           instance.father.present? ? instance.father&.name : ''
         end

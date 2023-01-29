@@ -2,36 +2,37 @@
 #
 # Table name: pandas
 #
-#  id                              :bigint           not null, primary key
-#  age(年龄)                       :integer          default(0)
-#  birth_date                      :date
-#  gender(0：未知 1：雄性 2：雌性) :integer          default(0)
-#  head_url                        :string(255)
-#  initial_weight(初始体重)        :string(10)
-#  is_death(是否死亡)              :boolean          default(FALSE)
-#  is_delete                       :boolean          default(FALSE)
-#  is_ill(是否生病)                :boolean          default(FALSE)
-#  is_lease(是否租借)              :boolean          default(FALSE)
-#  is_pregnant(是否怀孕)           :boolean          default(FALSE)
-#  month_day                       :string(4)
-#  name                            :string(30)
-#  pedigree_number(谱系号)         :string(12)
-#  remark(备注)                    :string(200)
-#  states(特殊状态)                :string(100)
-#  year                            :integer          default(0)
-#  created_at                      :datetime         not null
-#  updated_at                      :datetime         not null
-#  district_id                     :integer
-#  dormitory_id                    :integer
-#  father_father_id(父亲的父亲)    :integer
-#  father_id(父亲)                 :integer
-#  father_mother_id(父亲的母亲)    :integer
-#  mother_father_id(母亲的父亲)    :integer
-#  mother_id(母亲)                 :integer
-#  mother_mother_id(母亲的母亲)    :integer
-#  place_id                        :integer
-#  room_id                         :integer
-#  user_id(新建人员)               :integer
+#  id                                      :bigint           not null, primary key
+#  age(年龄)                               :integer          default(0)
+#  birth_date                              :date
+#  feed_type(饲养类型： 0： 育幼  1：饲养) :integer          default(0)
+#  gender(0：未知 1：雄性 2：雌性)         :integer          default(0)
+#  head_url                                :string(255)
+#  initial_weight(初始体重)                :string(10)
+#  is_death(是否死亡)                      :boolean          default(FALSE)
+#  is_delete                               :boolean          default(FALSE)
+#  is_ill(是否生病)                        :boolean          default(FALSE)
+#  is_lease(是否租借)                      :boolean          default(FALSE)
+#  is_pregnant(是否怀孕)                   :boolean          default(FALSE)
+#  month_day                               :string(4)
+#  name                                    :string(30)
+#  pedigree_number(谱系号)                 :string(12)
+#  remark(备注)                            :string(200)
+#  states(特殊状态)                        :string(100)
+#  year                                    :integer          default(0)
+#  created_at                              :datetime         not null
+#  updated_at                              :datetime         not null
+#  district_id                             :integer
+#  dormitory_id                            :integer
+#  father_father_id(父亲的父亲)            :integer
+#  father_id(父亲)                         :integer
+#  father_mother_id(父亲的母亲)            :integer
+#  mother_father_id(母亲的父亲)            :integer
+#  mother_id(母亲)                         :integer
+#  mother_mother_id(母亲的母亲)            :integer
+#  place_id                                :integer
+#  room_id                                 :integer
+#  user_id(新建人员)                       :integer
 #
 # Indexes
 #
@@ -45,7 +46,10 @@ class Panda < ApplicationRecord
   has_many :dormitory_records
   has_many :attachments
   has_many :drug_records
-  belongs_to :dormitory
+  belongs_to :place, required: false
+  belongs_to :district, required: false
+  belongs_to :dormitory, required: false
+  belongs_to :room, required: false
   belongs_to :father, class_name: 'Panda', foreign_key: 'father_id', required: false
   belongs_to :mother, class_name: 'Panda', foreign_key: 'mother_id', required: false
 
@@ -71,20 +75,29 @@ class Panda < ApplicationRecord
     update_columns(age: age, year: year, month_day: month)
   end
 
+  def states_update
+    names = StatesRecord.with_panda_current(id).pluck('name')
+    update_columns(states: names.join('、'))
+  end
+
+  def dormitory_name
+    if dormitory.present?
+      name = "#{place&.name}，#{district&.name}，#{dormitory&.name}"
+      name += "，#{room&.name}" if room.present?
+      name
+    else
+      ''
+    end
+  end
+
   def age_string
     if birth_date.blank?
       ''
-    elsif age.positive?
+    elsif feed_type.zero?
       "#{age}岁"
     else
       days = (Date.today - birth_date).to_i
-      if days > 30
-        "#{days / 30}个月"
-      elsif days > 7
-        "#{days / 7}周"
-      else
-        "#{days}天"
-      end
+      "#{days}天"
     end
   end
 
@@ -93,5 +106,6 @@ class Panda < ApplicationRecord
   scope :with_not, ->(id) { where('id != ?', id) }
   scope :with_name, ->(name) { where(name: name) }
   scope :with_not_delete, -> { where(is_delete: false) }
+  scope :with_live, -> { where(is_death: false) }
 
 end

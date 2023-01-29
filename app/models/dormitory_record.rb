@@ -9,6 +9,7 @@
 #  updated_at      :datetime         not null
 #  dormitory_id    :integer
 #  panda_id(地址)  :integer
+#  room_id         :integer          default(0)
 #  user_id(负责人) :integer
 #
 # Indexes

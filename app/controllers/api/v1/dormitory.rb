@@ -48,18 +48,22 @@ module Api
         use :transfer_params
       end
       post '/dormitory/panda_transfer' do
-        panda = ::Panda.find(params[:id])
-        panda.update(params.except(:id))
+        panda = ::Panda.find(params[:panda_id])
+        panda.update(params.except(:panda_id))
         present response: success_resp
       end
 
       desc '兽舍熊猫入住'
       params do
-        use :transfer_params
+        use :check_in_params
       end
-      post '/dormitory/panda_transfer' do
-        panda = ::Panda.find(params[:id])
-        panda.update(params.except(:id))
+      post '/dormitory/panda_check_in' do
+        dormitory = ::Dormitory.find(params[:dormitory_id])
+        pandas = ::Panda.where(ids: params[:panda_ids])
+        data = { place_id: dormitory.place_id, district_id: dormitory.district_id,
+                 dormitory_id: dormitory.id }
+        data[:room_id] = params[:room_id] if params[:room_id].present?
+        pandas.update_columns(data)
         present response: success_resp
       end
 
@@ -70,6 +74,16 @@ module Api
       get '/dormitory/list' do
         dormitory_list = ::Dormitory.with_district(params[:district_id]).with_delete(false)
         present dormitories: (present dormitory_list, with: Entities::Dormitories::Room),
+                response: success_resp
+      end
+
+      desc '兽舍列表-基础'
+      params do
+        use :uuid_district_params
+      end
+      get '/dormitory/base_list' do
+        dormitory_list = ::Dormitory.with_district(params[:district_id]).with_delete(false)
+        present dormitories: (present dormitory_list, with: Entities::Dormitories::Data),
                 response: success_resp
       end
 

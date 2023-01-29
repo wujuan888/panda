@@ -22,7 +22,41 @@ module Api
         use :uuid_search_params
       end
       get '/panda/list' do
+        params[:place_id_eq] = '' if params[:place_id_eq].to_i.zero?
         pandas = ::Panda.with_not_delete.ransack(params.except(:uuid)).result
+
+        present pandas: (present pandas, with: Entities::Pandas::MinPanda), response: success_resp
+      end
+
+      desc '熊猫列表 主页搜索'
+      params do
+        use :uuid_search_params
+      end
+      get '/panda/search_list' do
+        place_name = if params[:place_id_eq].to_i.zero?
+                       '全部'
+                     else
+                       ::Place.find(params[:place_id_eq]).name
+                     end
+        type_name = if params[:gender_eq].present?
+                      ::Panda.gender_str[params[:gender_eq].to_i]
+                    elsif params[:states_cont_all].present?
+                      params[:states_cont_all]
+                    else
+                      '在线'
+                    end
+        pandas = ::Panda.with_not_delete.with_live.ransack(params.except(:uuid)).result
+
+        present pandas: (present pandas, with: Entities::Pandas::MinPanda),
+                place_name: place_name, type_name: type_name, response: success_resp
+      end
+
+      desc '活着的熊猫列表'
+      params do
+        use :uuid_search_params
+      end
+      get '/panda/live_list' do
+        pandas = ::Panda.with_live.ransack(params.except(:uuid)).result
 
         present pandas: (present pandas, with: Entities::Pandas::MinPanda), response: success_resp
       end

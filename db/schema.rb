@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_25_022456) do
+ActiveRecord::Schema.define(version: 2023_01_29_070509) do
 
   create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "panda_id"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2022_11_25_022456) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_input", default: false, comment: "是否录入"
     t.index ["feeding_record_id"], name: "index_behavior_records_on_feeding_record_id"
     t.index ["panda_id"], name: "index_behavior_records_on_panda_id"
   end
@@ -48,6 +49,7 @@ ActiveRecord::Schema.define(version: 2022_11_25_022456) do
     t.string "other", limit: 100, comment: "其它情况"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_input", default: false, comment: "是否录入"
     t.index ["feeding_record_id"], name: "index_com_evaluation_records_on_feeding_record_id"
     t.index ["panda_id"], name: "index_com_evaluation_records_on_panda_id"
   end
@@ -93,6 +95,7 @@ ActiveRecord::Schema.define(version: 2022_11_25_022456) do
     t.string "address", limit: 20, comment: "地址"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "room_id", default: 0
     t.index ["dormitory_id"], name: "index_dormitory_records_on_dormitory_id"
     t.index ["panda_id"], name: "index_dormitory_records_on_panda_id"
   end
@@ -106,6 +109,9 @@ ActiveRecord::Schema.define(version: 2022_11_25_022456) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "drugs", limit: 500, comment: "药物"
+    t.integer "drug_id", default: 0
+    t.string "dose", limit: 50, comment: "剂量"
+    t.string "time_record", comment: "喂药时间（12:00）"
     t.index ["panda_id"], name: "index_drug_records_on_panda_id"
     t.index ["user_id"], name: "index_drug_records_on_user_id"
   end
@@ -135,6 +141,7 @@ ActiveRecord::Schema.define(version: 2022_11_25_022456) do
     t.string "amount", limit: 20
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_input", default: false, comment: "是否录入"
     t.index ["feeding_record_id"], name: "index_eat_records_on_feeding_record_id"
     t.index ["panda_id"], name: "index_eat_records_on_panda_id"
   end
@@ -145,6 +152,7 @@ ActiveRecord::Schema.define(version: 2022_11_25_022456) do
     t.string "name", limit: 50
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_input", default: false, comment: "是否录入"
     t.index ["feeding_record_id"], name: "index_enrichment_records_on_feeding_record_id"
     t.index ["panda_id"], name: "index_enrichment_records_on_panda_id"
   end
@@ -176,8 +184,26 @@ ActiveRecord::Schema.define(version: 2022_11_25_022456) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "forage_time", limit: 10, comment: "采食时间"
     t.string "mucus_time", limit: 10, comment: "粘液时间"
+    t.string "weight", limit: 100, comment: "体重"
+    t.string "remark", limit: 200, comment: "备注"
+    t.integer "date_record", comment: "日期"
+    t.integer "feeding_type", default: 0, comment: "类型 1 育幼 0 饲养"
     t.index ["panda_id"], name: "index_feeding_records_on_panda_id"
     t.index ["user_id"], name: "index_feeding_records_on_user_id"
+  end
+
+  create_table "milk_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.integer "panda_id"
+    t.integer "feeding_record_id"
+    t.string "breast_milk", limit: 20, comment: "母乳处奶量"
+    t.string "su_breast_milk", limit: 20, comment: "补母乳"
+    t.string "artificial_milk", limit: 20, comment: "人工奶"
+    t.string "milks", limit: 20, comment: "总奶量"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_input", default: false, comment: "是否录入"
+    t.index ["feeding_record_id"], name: "index_milk_records_on_feeding_record_id"
+    t.index ["panda_id"], name: "index_milk_records_on_panda_id"
   end
 
   create_table "mucus_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
@@ -187,9 +213,10 @@ ActiveRecord::Schema.define(version: 2022_11_25_022456) do
     t.string "pain", limit: 30, comment: "粘液痛感"
     t.string "color", limit: 20, comment: "粘液颜色"
     t.string "quality", limit: 10, comment: "粘液质量"
-    t.datetime "record_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_input", default: false, comment: "是否录入"
+    t.string "time_record", comment: "喂药时间（12:00）"
     t.index ["feeding_record_id"], name: "index_mucus_records_on_feeding_record_id"
     t.index ["panda_id"], name: "index_mucus_records_on_panda_id"
   end
@@ -207,7 +234,6 @@ ActiveRecord::Schema.define(version: 2022_11_25_022456) do
     t.integer "pei_zhong_count", default: 0, comment: "配种数量"
     t.integer "fa_qin_count", default: 0, comment: "发情数量"
     t.integer "dai_zai_count", default: 0, comment: "带仔数量"
-    t.integer "feed_type", default: 0, comment: "饲养类型： 0： 育幼  1：饲养"
   end
 
   create_table "pandas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
@@ -240,6 +266,8 @@ ActiveRecord::Schema.define(version: 2022_11_25_022456) do
     t.integer "place_id"
     t.integer "district_id"
     t.integer "room_id"
+    t.integer "feed_type", default: 0, comment: "饲养类型： 0： 育幼  1：饲养"
+    t.integer "feeding_type", default: 0, comment: "类型 1 育幼 0 饲养"
     t.index ["name"], name: "index_pandas_on_name"
   end
 
@@ -279,6 +307,7 @@ ActiveRecord::Schema.define(version: 2022_11_25_022456) do
     t.string "quality", limit: 20, comment: "大便质量"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_input", default: false, comment: "是否录入"
     t.index ["feeding_record_id"], name: "index_poop_records_on_feeding_record_id"
     t.index ["panda_id"], name: "index_poop_records_on_panda_id"
   end
@@ -317,13 +346,14 @@ ActiveRecord::Schema.define(version: 2022_11_25_022456) do
     t.integer "panda_id"
     t.integer "feeding_record_id"
     t.string "name"
-    t.date "start_date"
-    t.date "stop_date"
     t.string "district", limit: 100, comment: "地区"
     t.string "institution", limit: 100, comment: "机构"
     t.boolean "is_stop", default: false, comment: "是否结束"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "item_id", comment: "特殊状态开始或结束id"
+    t.integer "states_type", comment: "0: 开始  1： 结束"
+    t.datetime "date", comment: "开始或结束日期"
     t.index ["feeding_record_id"], name: "index_states_records_on_feeding_record_id"
     t.index ["panda_id"], name: "index_states_records_on_panda_id"
   end
@@ -333,6 +363,18 @@ ActiveRecord::Schema.define(version: 2022_11_25_022456) do
     t.bigint "drug_record_id"
     t.index ["drug_id"], name: "index_table_drugs_drug_records_on_drug_id"
     t.index ["drug_record_id"], name: "index_table_drugs_drug_records_on_drug_record_id"
+  end
+
+  create_table "temperature_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.integer "panda_id"
+    t.integer "feeding_record_id"
+    t.string "body", limit: 20, comment: "体温"
+    t.string "box", limit: 20, comment: "箱温"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_input", default: false, comment: "是否录入"
+    t.index ["feeding_record_id"], name: "index_temperature_records_on_feeding_record_id"
+    t.index ["panda_id"], name: "index_temperature_records_on_panda_id"
   end
 
   create_table "train_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|

@@ -193,11 +193,11 @@ module Api
 
       desc '管理员获取 熊猫统计'
       params do
-        use :uuid_data
+        use :uuid_place_data
       end
       get '/user/panda' do
         auth_user
-        record = ::PandaRecord.first
+        record = ::PandaRecord.with_place(params[:place_id])
 
         present record: (present record, with: Entities::PandaRecord), response: success_resp
       end
