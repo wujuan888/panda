@@ -18,7 +18,7 @@ module Api
 
       desc '熊猫饲养记录'
       params do
-        use :uuid_panda_params
+        use :uuid_panda_date_params
       end
       get '/feeding_record/list' do
         panda = ::Panda.find(params[:panda_id])
@@ -46,7 +46,7 @@ module Api
       end
       get '/feeding_record/you_time_record' do
         record = ::FeedingRecord.new
-        present record: (present record, with: Entities::FeedingRecords::NewYouRecord), panda_id: params[:panda_id],
+        present record: (present record, with: Entities::FeedingRecords::NewYouRecord, panda_id: params[:panda_id]),
                 response: success_resp
       end
 
@@ -106,7 +106,7 @@ module Api
 
       desc '饲养记录-综合'
       params do
-        use :uuid_panda_params
+        use :uuid_panda_date_params
       end
       get '/feeding_record/com_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
@@ -117,7 +117,7 @@ module Api
 
       desc '列表-体重'
       params do
-        use :uuid_panda_params
+        use :uuid_panda_date_params
       end
       get '/feeding_record/weight_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
@@ -128,7 +128,7 @@ module Api
 
       desc '列表-大便'
       params do
-        use :uuid_panda_params
+        use :uuid_panda_date_params
       end
       get '/feeding_record/poop_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
@@ -139,7 +139,7 @@ module Api
 
       desc '列表-粘液'
       params do
-        use :uuid_panda_params
+        use :uuid_panda_date_params
       end
       get '/feeding_record/mucus_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
@@ -150,7 +150,7 @@ module Api
 
       desc '列表-喂药'
       params do
-        use :uuid_panda_params
+        use :uuid_panda_date_params
       end
       get '/feeding_record/drug_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
@@ -161,7 +161,7 @@ module Api
 
       desc '列表-丰容'
       params do
-        use :uuid_panda_params
+        use :uuid_panda_date_params
       end
       get '/feeding_record/enrichment_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
@@ -172,7 +172,7 @@ module Api
 
       desc '列表-训练'
       params do
-        use :uuid_panda_params
+        use :uuid_panda_date_params
       end
       get '/feeding_record/train_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
@@ -183,7 +183,7 @@ module Api
 
       desc '列表-行为'
       params do
-        use :uuid_panda_params
+        use :uuid_panda_date_params
       end
       get '/feeding_record/behavior_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
@@ -194,7 +194,7 @@ module Api
 
       desc '列表-特殊状态'
       params do
-        use :uuid_panda_params
+        use :uuid_panda_date_params
       end
       get '/feeding_record/states_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
@@ -205,7 +205,7 @@ module Api
 
       desc '列表-奶量'
       params do
-        use :uuid_panda_params
+        use :uuid_panda_date_params
       end
       get '/feeding_record/milk_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\
@@ -216,7 +216,7 @@ module Api
 
       desc '列表-体温箱温'
       params do
-        use :uuid_panda_params
+        use :uuid_panda_date_params
       end
       get '/feeding_record/temperature_list' do
         list = ::FeedingRecord.with_panda(params[:panda_id])\

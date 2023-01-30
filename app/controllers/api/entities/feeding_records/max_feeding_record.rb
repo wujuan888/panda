@@ -21,7 +21,7 @@ module Api
           Entities::EatOtherRecord::Data.represent instance.eat_other_records
         end
         expose :behavior_record do |instance, _|
-          Entities::BehaviorRecord.represent instance.behavior_record
+          Entities::BehaviorRecord::Data.represent instance.behavior_record
         end
         expose :train_records do |instance, _|
           Entities::TrainRecord::Data.represent instance.train_records

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_29_070509) do
+ActiveRecord::Schema.define(version: 2023_01_30_005049) do
 
   create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "panda_id"
@@ -112,6 +112,8 @@ ActiveRecord::Schema.define(version: 2023_01_29_070509) do
     t.integer "drug_id", default: 0
     t.string "dose", limit: 50, comment: "剂量"
     t.string "time_record", comment: "喂药时间（12:00）"
+    t.integer "feeding_record_id"
+    t.index ["feeding_record_id"], name: "index_drug_records_on_feeding_record_id"
     t.index ["panda_id"], name: "index_drug_records_on_panda_id"
     t.index ["user_id"], name: "index_drug_records_on_user_id"
   end

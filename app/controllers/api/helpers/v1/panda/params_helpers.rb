@@ -23,6 +23,8 @@ module Api
             optional :name_or_pedigree_number_cont_all, type: String, desc: '姓名或谱系号'
             optional :states_cont_all, type: String, desc: '状态'
             optional :place_id_eq, type: Integer, desc: '所在地'
+            optional :birth_date_gteq, type: String, desc: '出生日期 大于等于'
+            optional :birth_date_lteq, type: String, desc: '出生日期 小于等于'
           end
 
           params :uuid_id_params do
