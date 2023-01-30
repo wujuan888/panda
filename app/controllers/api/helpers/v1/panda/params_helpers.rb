@@ -42,7 +42,7 @@ module Api
             requires :uuid, type: String, desc: '用户UUID'
             requires :name, type: String, desc: '姓名'
             requires :gender, type: Integer, values: [1, 2], desc: '性别'
-            requires :feed_type, type: Integer, values: [0, 1], desc: '饲养类型'
+            requires :feeding_type, type: Integer, values: [0, 1], desc: '饲养类型'
             optional :pedigree_number, type: String, desc: '谱系号'
             optional :birth_date, type: String, desc: '出生日期'
             optional :initial_weight, type: String, desc: '体重'

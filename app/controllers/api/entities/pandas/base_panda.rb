@@ -4,7 +4,7 @@ module Api
   module Entities
     module Pandas
       class BasePanda < Grape::Entity
-        expose :id, :name, :age, :gender, :head_url, :pedigree_number, :states, :feed_type
+        expose :id, :name, :age, :gender, :head_url, :pedigree_number, :states, :feeding_type
         expose :place_id, :district_id, :dormitory_id, :room_id
         expose :dormitory_name do |instance, _|
           instance.dormitory_name

@@ -49,7 +49,12 @@ module Api
       end
       post '/dormitory/panda_transfer' do
         panda = ::Panda.find(params[:panda_id])
+        old_place_id = panda.place_id
         panda.update(params.except(:panda_id))
+        if old_place_id != params[:place_id].to_i
+          content = { place_id: panda.place_id, old_place_id: old_place_id, gender: panda.gender, states: panda.states }
+          PandaWorker.perform_async(3, content)
+        end
         present response: success_resp
       end
 
@@ -59,11 +64,14 @@ module Api
       end
       post '/dormitory/panda_check_in' do
         dormitory = ::Dormitory.find(params[:dormitory_id])
-        pandas = ::Panda.where(ids: params[:panda_ids])
+        pandas = ::Panda.where(id: params[:panda_ids])
+        content = { place_id: dormitory.place_id, old: pandas.pluck('place_id', 'states', 'gender') }
         data = { place_id: dormitory.place_id, district_id: dormitory.district_id,
                  dormitory_id: dormitory.id }
         data[:room_id] = params[:room_id] if params[:room_id].present?
         pandas.update_columns(data)
+        PandaWorker.perform_async(2, content)
+
         present response: success_resp
       end
 

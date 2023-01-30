@@ -16,8 +16,14 @@ module Api
             other_params = states_records_update(params[:states_records_attributes], feeding_record, other_params)
             feeding_record.update(other_params)
             image_list_create(params[:image_list], feeding_record)
-            feeding_record.panda.states_update
-            feeding_record.panda
+            panda = feeding_record.panda
+            old_states = panda.states
+            states = panda.states_update
+            if old_states != states
+              content = { place_id: panda.place_id, gender: panda.gender, states: states, old_states: old_states }
+              PandaWorker.perform_async(10, content)
+            end
+            panda
           end
 
           def update_param(params, feeding_record)
@@ -29,8 +35,14 @@ module Api
             other_params = states_records_update(params[:states_records_attributes], feeding_record, other_params)
             feeding_record.update(other_params)
             image_list_update(params[:image_list], feeding_record)
-            feeding_record.panda.states_update
-            feeding_record.panda
+            panda = feeding_record.panda
+            old_states = panda.states
+            states = panda.states_update
+            if old_states != states
+              content = { place_id: panda.place_id, gender: panda.gender, states: states, old_states: old_states }
+              PandaWorker.perform_async(10, content)
+            end
+            panda
           end
 
           def you_create_param(params)
@@ -40,8 +52,14 @@ module Api
             other_params = states_records_update(params[:states_records_attributes], feeding_record, other_params)
             feeding_record.update(other_params)
             image_list_create(params[:image_list], feeding_record)
-            feeding_record.panda.states_update
-            feeding_record.panda
+            panda = feeding_record.panda
+            old_states = panda.states
+            states = panda.states_update
+            if old_states != states
+              content = { place_id: panda.place_id, gender: panda.gender, states: states, old_states: old_states }
+              PandaWorker.perform_async(10, content)
+            end
+            panda
           end
 
           def you_update_param(params, feeding_record)
@@ -51,8 +69,14 @@ module Api
             other_params = states_records_update(params[:states_records_attributes], feeding_record, other_params)
             feeding_record.update(other_params)
             image_list_update(params[:image_list], feeding_record)
-            feeding_record.panda.states_update
-            feeding_record.panda
+            panda = feeding_record.panda
+            old_states = panda.states
+            states = panda.states_update
+            if old_states != states
+              content = { place_id: panda.place_id, gender: panda.gender, states: states, old_states: old_states }
+              PandaWorker.perform_async(10, content)
+            end
+            panda
           end
 
           def image_list_create(image_list, feeding_record)

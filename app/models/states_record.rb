@@ -26,9 +26,15 @@ class StatesRecord < ApplicationRecord
   has_one :item_record, primary_key: :item_id, foreign_key: :id, class_name: 'StatesRecord'
 
   after_create :create_item
+  after_destroy :destroy_item
 
   def create_item
     item_record.update_columns(item_id: id, is_stop: false) if states_type == 1
+    panda.update_columns(is_death: true) if states_type.zero? && name == '死亡'
+  end
+
+  def destroy_item
+    panda.update_columns(is_death: true) if states_type.zero? && name == '死亡'
   end
 
   scope :with_current, -> { where(is_stop: false, states_type: 0) }

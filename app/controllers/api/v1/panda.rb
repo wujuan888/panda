@@ -115,7 +115,7 @@ module Api
 
         panda = ::Panda.create(params.except(:uuid))
         create_panda(panda.dormitory_id)
-        PandaWorker.perform_async(0, { gender: panda.gender })
+        PandaWorker.perform_async(0, { gender: panda.gender, place_id: panda.place_id })
 
         present response: success_resp
       end
@@ -137,10 +137,13 @@ module Api
       post '/panda/update' do
         panda = ::Panda.find(params[:id])
         old_gender = panda.gender
+        old_place_id = panda.place_id
         change_panda(panda.dormitory_id, params[:dormitory_id])
         panda.update(params.except(:uuid, :id))
-        PandaWorker.perform_async(1, { gender: panda.gender, old_gender: old_gender }) if panda.gender != old_gender
-
+        if panda.gender != old_gender
+          PandaWorker.perform_async(1, { gender: panda.gender, old_gender: old_gender, states: panda.states,
+                                         place_id: panda.place_id, old_place_id: old_place_id })
+        end
         present response: success_resp
       end
 
@@ -152,7 +155,7 @@ module Api
         panda = ::Panda.find(params[:id])
         dormitory_pull(panda.dormitory_id)
         panda.update_columns(is_delete: true)
-        content = { gender: panda.gender, is_ill: panda.is_ill, is_lease: panda.is_lease, is_pregnant: panda.is_pregnant }
+        content = { gender: panda.gender, states: panda.states, place_id: panda.place_id }
         PandaWorker.perform_async(40, content)
 
         present response: success_resp
