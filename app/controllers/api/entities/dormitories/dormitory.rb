@@ -14,7 +14,11 @@ module Api
           Entities::Dormitories::Data.represent ::Dormitory.with_district(instance.district_id)
         end
         expose :room_list do |instance, _|
-          Entities::Rooms::MinData.represent ::Room.with_dormitory(instance.id)
+          if instance.new_record?
+            []
+          else
+            Entities::Rooms::MinData.represent ::Room.with_dormitory(instance.id)
+          end
         end
       end
     end
