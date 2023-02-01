@@ -8,7 +8,7 @@ module Api
       end
 
       class MinData < Grape::Entity
-        expose :id, :name, :place_id, :district_id, :dormitory_id
+        expose :id, :name
       end
 
       class New < Grape::Entity
