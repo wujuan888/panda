@@ -7,6 +7,10 @@ module Api
         expose :id, :name, :place_id, :district_id, :dormitory_id
       end
 
+      class MinData < Grape::Entity
+        expose :id, :name, :place_id, :district_id, :dormitory_id
+      end
+
       class New < Grape::Entity
         expose :place_list do |instance, _|
           Entities::Places::Place.represent ::Place.all

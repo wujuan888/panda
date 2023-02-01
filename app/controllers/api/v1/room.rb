@@ -25,6 +25,16 @@ module Api
                 response: success_resp
       end
 
+      desc '房号列表'
+      params do
+        use :uuid_dormitory_params
+      end
+      get '/room/base_list' do
+        room_list = ::Room.with_dormitory(params[:dormitory_id]).with_delete(false)
+        present rooms: (present room_list, with: Entities::Rooms::MinData),
+                response: success_resp
+      end
+
       desc '新建房号'
       params do
         use :uuid_district_params
