@@ -4,7 +4,7 @@ module Api
   module Entities
     module Pandas
       class Room < Grape::Entity
-        expose :id, :name, :gender, :pedigree_number
+        expose :id, :name, :gender, :pedigree_number, :is_death
         expose :place_id, :district_id, :dormitory_id, :room_id
         expose :age_str do |instance, _|
           instance.age_string

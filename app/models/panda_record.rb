@@ -18,5 +18,5 @@
 #
 class PandaRecord < ApplicationRecord
   belongs_to :place, required: false
-  scope :with_place, ->(id) {where(place_id: id)}
+  scope :with_place, ->(id) { where(place_id: id) }
 end
