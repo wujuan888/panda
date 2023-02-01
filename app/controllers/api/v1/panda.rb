@@ -105,6 +105,21 @@ module Api
         present data: data, response: success_resp
       end
 
+      desc '熊猫 所在地编辑信息获取'
+      params do
+        use :uuid_dormitory_params
+      end
+      post '/panda/dormitory_list' do
+        dormitory = if params[:dormitory_id].present?
+                      ::Dormitory.where(id: params[:dormitory_id])
+                    else
+                      ::Dormitory.new
+                    end
+        return { response: err_resp(ERR_CODE[:POP_UP], '兽舍号不存在') } if dormitory.blank?
+
+        present pandas: (present dormitory, with: Entities::Dormitories::Dormitory), response: success_resp
+      end
+
       desc '新建熊猫'
       params do
         use :create_params

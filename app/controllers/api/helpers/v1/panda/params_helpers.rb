@@ -32,6 +32,11 @@ module Api
             requires :id, type: Integer, desc: '熊猫ID'
           end
 
+          params :uuid_dormitory_params do
+            requires :uuid, type: String, desc: '用户UUID'
+            requires :dormitory_id, type: Integer, desc: '兽舍ID'
+          end
+
           params :uuid_genealogy_params do
             requires :uuid, type: String, desc: '用户UUID'
             optional :father_id, type: Integer, desc: '父亲ID'
