@@ -34,7 +34,7 @@ module Api
 
           params :uuid_dormitory_params do
             requires :uuid, type: String, desc: '用户UUID'
-            requires :dormitory_id, type: Integer, desc: '兽舍ID'
+            optional :dormitory_id, type: Integer, desc: '兽舍ID'
           end
 
           params :uuid_genealogy_params do

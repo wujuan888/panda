@@ -109,7 +109,7 @@ module Api
       params do
         use :uuid_dormitory_params
       end
-      post '/panda/dormitory_list' do
+      get '/panda/dormitory_list' do
         dormitory = if params[:dormitory_id].present?
                       ::Dormitory.where(id: params[:dormitory_id])
                     else
