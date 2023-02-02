@@ -107,6 +107,7 @@ module Api
           end
 
           params :states_params do
+            optional :item_id, type: Integer, desc: '结束状态的开始id'
             optional :states_type, type: Integer, desc: '0: 开始, 1: 结束'
             optional :name, type: String, desc: '名称'
             optional :date, type: String, desc: '开始或结束时间'
