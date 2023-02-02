@@ -4,7 +4,7 @@ module Api
   module Entities
     module Pandas
       class FeedingRecord < Grape::Entity
-        expose :id, :name, :gender, :dormitory_id, :head_url, :pedigree_number, :states, :feeding_type
+        expose :id, :name, :gender, :dormitory_id, :head_url, :pedigree_number, :states, :feeding_type, :is_death
         expose :age_str do |instance, _|
           instance.age_string
         end

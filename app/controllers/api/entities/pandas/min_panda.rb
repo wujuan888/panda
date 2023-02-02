@@ -4,7 +4,7 @@ module Api
   module Entities
     module Pandas
       class MinPanda < Grape::Entity
-        expose :id, :name, :gender, :age, :dormitory_id, :head_url, :pedigree_number, :feeding_type, :is_death
+        expose :id, :name, :gender, :age, :dormitory_id, :head_url, :pedigree_number, :feeding_type, :is_death, :states
         expose :age_str do |instance, _|
           instance.age_string
         end
