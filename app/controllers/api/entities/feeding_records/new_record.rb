@@ -32,7 +32,7 @@ module Api
           Entities::StatesRecord::Data.represent ::StatesRecord.with_panda_current(option[:panda_id])
         end
         expose :drug_list do |_|
-          Entities::Drug::Data.represent ::Drug.all
+          Entities::Drug::MaxData.represent ::Drug.all
         end
         expose :bamboo_list do |_|
           Entities::Bamboo::Data.represent ::Bamboo.all

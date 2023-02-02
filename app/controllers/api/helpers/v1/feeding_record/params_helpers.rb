@@ -71,8 +71,8 @@ module Api
           params :base_params do
             requires :uuid, type: String, desc: '用户UUID'
             requires :panda_id, type: Integer, desc: '熊猫'
-            requires :weight, type: Integer, desc: '体重'
-            optional :remark, type: Integer, desc: '备注'
+            requires :weight, type: String, desc: '体重'
+            optional :remark, type: String, desc: '备注'
             requires :time, type: String, desc: '日期'
             optional :image_list, type: Array[String], desc: '照片url'
           end

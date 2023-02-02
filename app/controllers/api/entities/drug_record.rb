@@ -10,6 +10,9 @@ module Api
         expose :time_record
         expose :drug_id
         expose :user_id
+        expose :drug do |instance, _|
+          Entities::Drug::Data.represent instance.drug
+        end
       end
     end
   end
