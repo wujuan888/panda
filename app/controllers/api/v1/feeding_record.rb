@@ -78,7 +78,7 @@ module Api
 
       desc '提交新建育幼记录'
       params do
-        use :create_params
+        use :you_create_params
       end
       post '/feeding_record/you_create' do
         you_create_param(params)
@@ -87,7 +87,7 @@ module Api
 
       desc '编辑育幼记录'
       params do
-        use :update_params
+        use :you_update_params
       end
       post '/feeding_record/you_update' do
         you_update_param(params)
