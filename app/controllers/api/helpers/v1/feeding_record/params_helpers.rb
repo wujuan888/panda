@@ -97,7 +97,7 @@ module Api
           params :drug_params do
             optional :drug_id, type: Integer, desc: '药品id'
             optional :dose, type: String, desc: '剂量'
-            optional :time, type: String, desc: '喂药时间'
+            optional :time_record, type: String, desc: '喂药时间 : 12:00'
           end
 
           params :com_evaluation_params do

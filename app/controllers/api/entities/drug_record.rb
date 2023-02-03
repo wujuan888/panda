@@ -6,12 +6,10 @@ module Api
       class Data < Grape::Entity
         expose :id
         expose :dose
-        expose :remark
         expose :time_record
         expose :drug_id
-        expose :user_id
-        expose :drug do |instance, _|
-          Entities::Drug::Data.represent instance.drug
+        expose :drug_name do |instance, _|
+          instance.drug&.name
         end
       end
     end
