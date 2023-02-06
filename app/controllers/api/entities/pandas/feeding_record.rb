@@ -8,6 +8,9 @@ module Api
         expose :age_str do |instance, _|
           instance.age_string
         end
+        expose :gender_name do |instance, _|
+          ::Panda.gender_str[instance.gender]
+        end
         expose :dormitory_name do |instance, _|
           instance.dormitory_name
         end
