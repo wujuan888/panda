@@ -98,7 +98,7 @@ module Api
       params do
         use :uuid_id_params
       end
-      post '/feeding_record/info' do
+      get '/feeding_record/info' do
         record = ::FeedingRecord.find(params[:id])
 
         present record: (present record, with: Entities::FeedingRecords::ShowData), response: success_resp
