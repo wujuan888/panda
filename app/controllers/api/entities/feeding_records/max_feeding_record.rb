@@ -4,7 +4,7 @@ module Api
   module Entities
     module FeedingRecords
       class MaxFeedingRecord < Grape::Entity
-        expose :id, :weight, :panda_id, :remark, :user_id
+        expose :id, :weight, :panda_id, :remark, :user_id, :feeding_type
         expose :created_at, format_with: :localtime
         expose :time, format_with: :only_date
         expose :panda do |instance, _|

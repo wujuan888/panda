@@ -8,7 +8,7 @@ module Api
         expose :user_name do |instance, _|
           instance.user&.real_name
         end
-        expose :weight
+        expose :weight, :feeding_type
       end
     end
   end
