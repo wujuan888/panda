@@ -121,7 +121,7 @@ module Api
             delete_ids = old_ids - now_ids
             logger.info "drug_records_update   4444"
             ::DrugRecord.with_id(delete_ids).destroy_all if delete_ids.present?
-            logger.info "drug_records_update   5555"
+            logger.info "drug_records_update   5555 other_params #{other_params}"
             other_params[:drug_records_attributes] = items
             other_params[:drug_records_attributes][:panda_id] = feeding_record.panda_id
             logger.info "drug_records_update   6666"
