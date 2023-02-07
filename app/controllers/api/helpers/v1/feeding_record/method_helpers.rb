@@ -102,9 +102,13 @@ module Api
 
           def eat_other_records_update(params, feeding_record, other_params)
             old_ids = feeding_record.eat_other_records.pluck('id')
-            now_ids = params.map { |x| x&.id }
+            now_ids = if params.blank?
+                        []
+                      else
+                        params.map { |x| x&.id }
+                      end
             items = []
-            params.each do |item|
+            params&.each do |item|
               item[:panda_id] = feeding_record.panda_id
               items.push item
             end
@@ -116,9 +120,13 @@ module Api
 
           def drug_records_update(params, feeding_record, other_params)
             old_ids = feeding_record.drug_records.pluck('id')
-            now_ids = params.map { |x| x&.id }
+            now_ids = if params.blank?
+                        []
+                      else
+                        params.map { |x| x&.id }
+                      end
             items = []
-            params.each do |item|
+            params&.each do |item|
               item[:panda_id] = feeding_record.panda_id
               items.push item
             end
@@ -130,9 +138,13 @@ module Api
 
           def train_records_update(params, feeding_record, other_params)
             old_ids = feeding_record.train_records.pluck('id')
-            now_ids = params.map { |x| x&.id }
+            now_ids = if params.blank?
+                        []
+                      else
+                        params.map { |x| x&.id }
+                      end
             items = []
-            params.each do |item|
+            params&.each do |item|
               item[:panda_id] = feeding_record.panda_id
               items.push item
             end
@@ -144,9 +156,13 @@ module Api
 
           def states_records_update(params, feeding_record, other_params)
             old_ids = feeding_record.states_records.pluck('id')
-            now_ids = params.map { |x| x&.id }
+            now_ids = if params.blank?
+                        []
+                      else
+                        params.map { |x| x&.id }
+                      end
             items = []
-            params.each do |item|
+            params&.each do |item|
               item[:panda_id] = feeding_record.panda_id
               items.push item
             end
