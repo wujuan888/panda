@@ -157,6 +157,7 @@ module Api
             base_params.delete(:train_records_attributes)
             base_params.delete(:states_records_attributes)
             base_params.delete(:image_list)
+            base_params.delete(:uuid)
             date_record = params[:time].delete('-')
             feeding_record = ::FeedingRecord.with_panda_record(params[:panda_id], date_record)&.last
             if feeding_record.blank?
@@ -174,6 +175,7 @@ module Api
             base_params.delete(:drug_records_attributes)
             base_params.delete(:states_records_attributes)
             base_params.delete(:image_list)
+            base_params.delete(:uuid)
             ::FeedingRecord.create(base_params)
           end
 
@@ -183,6 +185,7 @@ module Api
             base_params.delete(:drug_records_attributes)
             base_params.delete(:states_records_attributes)
             base_params.delete(:image_list)
+            base_params.delete(:uuid)
             feeding_record.update(base_params)
           end
 
@@ -193,6 +196,7 @@ module Api
             base_params.delete(:train_records_attributes)
             base_params.delete(:states_records_attributes)
             base_params.delete(:image_list)
+            base_params.delete(:uuid)
             feeding_record.update(base_params)
           end
 
