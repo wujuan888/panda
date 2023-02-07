@@ -46,9 +46,12 @@ module Api
           end
 
           def you_create_param(params)
+            logger.info "you_create_param   0000000000"
             feeding_record = you_base_create(params)
             other_params = {}
+            logger.info "you_create_param   11111111111"
             other_params = drug_records_update(params[:drug_records_attributes], feeding_record, other_params)
+            logger.info "you_create_param   22222222222"
             other_params = states_records_update(params[:states_records_attributes], feeding_record, other_params)
             feeding_record.update(other_params)
             image_list_create(params[:image_list], feeding_record)
@@ -108,13 +111,20 @@ module Api
           end
 
           def drug_records_update(params, feeding_record, other_params)
+            logger.info "drug_records_update   0000"
             items = json_array_to_hash_array(params)
+            logger.info "drug_records_update   1111"
             old_ids = feeding_record.drug_records.pluck('id')
+            logger.info "drug_records_update   2222"
             now_ids = items.map { |x| x&.id }
+            logger.info "drug_records_update   3333"
             delete_ids = old_ids - now_ids
+            logger.info "drug_records_update   4444"
             ::DrugRecord.with_id(delete_ids).destroy_all if delete_ids.present?
+            logger.info "drug_records_update   5555"
             other_params[:drug_records_attributes] = items
             other_params[:drug_records_attributes][:panda_id] = feeding_record.panda_id
+            logger.info "drug_records_update   6666"
             other_params
           end
 
