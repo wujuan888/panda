@@ -46,7 +46,7 @@ module Api
           end
 
           def you_create_param(params)
-            logger.info "you_create_param   0000000000"
+            logger.info "you_create_param   0000000000  params  #{params}"
             feeding_record = you_base_create(params)
             other_params = {}
             logger.info "you_create_param   11111111111"
@@ -111,7 +111,7 @@ module Api
           end
 
           def drug_records_update(params, feeding_record, other_params)
-            logger.info "drug_records_update   0000"
+            logger.info "drug_records_update   0000  params #{params}"
             items = json_array_to_hash_array(params)
             logger.info "drug_records_update   1111"
             old_ids = feeding_record.drug_records.pluck('id')
@@ -122,8 +122,10 @@ module Api
             logger.info "drug_records_update   4444"
             ::DrugRecord.with_id(delete_ids).destroy_all if delete_ids.present?
             logger.info "drug_records_update   5555 other_params #{other_params}  items #{items}   panda_id #{feeding_record.panda_id} "
-            other_params[:drug_records_attributes] = items
-            other_params[:drug_records_attributes][:panda_id] = feeding_record.panda_id
+            if items.present?
+              other_params[:drug_records_attributes] = items
+              other_params[:drug_records_attributes][:panda_id] = feeding_record.panda_id
+            end
             logger.info "drug_records_update   6666"
             other_params
           end
