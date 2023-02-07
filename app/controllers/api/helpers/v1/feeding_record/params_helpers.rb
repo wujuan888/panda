@@ -102,7 +102,7 @@ module Api
 
           params :com_evaluation_params do
             optional :collection, type: String, desc: '采集情况'
-            optional :aspiritualmount, type: String, desc: '精神情况'
+            optional :spiritual, type: String, desc: '精神情况'
             optional :other, type: String, desc: '其它情况'
           end
 
