@@ -53,6 +53,7 @@ module Api
             other_params = drug_records_update(params[:drug_records_attributes], feeding_record, other_params)
             logger.info "you_create_param   22222222222"
             other_params = states_records_update(params[:states_records_attributes], feeding_record, other_params)
+            logger.info "you_create_param   3333333333v  #{other_params}"
             feeding_record.update(other_params)
             image_list_create(params[:image_list], feeding_record)
             panda = feeding_record.panda
@@ -100,55 +101,58 @@ module Api
           end
 
           def eat_other_records_update(params, feeding_record, other_params)
-            items = json_array_to_hash_array(params)
             old_ids = feeding_record.eat_other_records.pluck('id')
-            now_ids = items.map { |x| x&.id }
+            now_ids = params.map { |x| x&.id }
+            items = []
+            params.each do |item|
+              item[:panda_id] = feeding_record.panda_id
+              items.push item
+            end
             delete_ids = old_ids - now_ids
             ::EatOtherRecord.with_id(delete_ids).destroy_all if delete_ids.present?
-            other_params[:eat_other_records_attributes] = items
-            other_params[:eat_other_records_attributes][:panda_id] = feeding_record.panda_id
+            other_params[:eat_other_records_attributes] = items if items.present?
             other_params
           end
 
           def drug_records_update(params, feeding_record, other_params)
-            logger.info "drug_records_update   0000  params #{params}"
-            items = json_array_to_hash_array(params)
-            logger.info "drug_records_update   1111"
             old_ids = feeding_record.drug_records.pluck('id')
-            logger.info "drug_records_update   2222"
-            now_ids = items.map { |x| x&.id }
-            logger.info "drug_records_update   3333"
-            delete_ids = old_ids - now_ids
-            logger.info "drug_records_update   4444"
-            ::DrugRecord.with_id(delete_ids).destroy_all if delete_ids.present?
-            logger.info "drug_records_update   5555 other_params #{other_params}  items #{items}   panda_id #{feeding_record.panda_id} "
-            if items.present?
-              other_params[:drug_records_attributes] = items
-              other_params[:drug_records_attributes][:panda_id] = feeding_record.panda_id
+            now_ids = params.map { |x| x&.id }
+            items = []
+            params.each do |item|
+              item[:panda_id] = feeding_record.panda_id
+              items.push item
             end
-            logger.info "drug_records_update   6666"
+            delete_ids = old_ids - now_ids
+            ::DrugRecord.with_id(delete_ids).destroy_all if delete_ids.present?
+            other_params[:drug_records_attributes] = items if items.present?
             other_params
           end
 
           def train_records_update(params, feeding_record, other_params)
-            items = json_array_to_hash_array(params)
             old_ids = feeding_record.train_records.pluck('id')
-            now_ids = items.map { |x| x&.id }
+            now_ids = params.map { |x| x&.id }
+            items = []
+            params.each do |item|
+              item[:panda_id] = feeding_record.panda_id
+              items.push item
+            end
             delete_ids = old_ids - now_ids
             ::TrainRecord.with_id(delete_ids).destroy_all if delete_ids.present?
-            other_params[:train_records_attributes] = items
-            other_params[:train_records_attributes][:panda_id] = feeding_record.panda_id
+            other_params[:train_records_attributes] = items if items.present?
             other_params
           end
 
           def states_records_update(params, feeding_record, other_params)
-            items = json_array_to_hash_array(params)
             old_ids = feeding_record.states_records.pluck('id')
-            now_ids = items.map { |x| x&.id }
+            now_ids = params.map { |x| x&.id }
+            items = []
+            params.each do |item|
+              item[:panda_id] = feeding_record.panda_id
+              items.push item
+            end
             delete_ids = old_ids - now_ids
             ::StatesRecord.with_id(delete_ids).destroy_all if delete_ids.present?
-            other_params[:states_records_attributes] = items
-            other_params[:states_records_attributes][:panda_id] = feeding_record.panda_id
+            other_params[:states_records_attributes] = items if items.present?
             other_params
           end
 
