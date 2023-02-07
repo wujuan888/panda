@@ -42,12 +42,17 @@ module Api
 
       desc '新建熊猫的育幼记录'
       params do
-        use :uuid_panda_params
+        use :uuid_time_params
       end
       get '/feeding_record/you_time_record' do
-        record = ::FeedingRecord.new
-        present record: (present record, with: Entities::FeedingRecords::NewYouRecord, panda_id: params[:panda_id]),
-                response: success_resp
+        date_record = params[:date].delete('-')
+        record = ::FeedingRecord.with_panda(params[:panda_id]).with_date_record(date_record).last
+        feeding_record = if record.present?
+                           present record, with: Entities::FeedingRecords::MaxYouRecord
+                         else
+                           present ::FeedingRecord.new, with: Entities::FeedingRecords::NewYouRecord, panda_id: params[:panda_id]
+                         end
+        present record: feeding_record, is_new: record.present?, response: success_resp
       end
 
       desc '获取饲养物品'
