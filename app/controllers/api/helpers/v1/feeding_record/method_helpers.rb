@@ -67,7 +67,7 @@ module Api
           end
 
           def you_update_param(params, feeding_record)
-            base_update(params, feeding_record)
+            you_base_update(params, feeding_record)
             other_params = {}
             other_params = drug_records_update(params[:drug_records_attributes], feeding_record, other_params)
             other_params = states_records_update(params[:states_records_attributes], feeding_record, other_params)
@@ -208,10 +208,17 @@ module Api
             base_params.delete(:states_records_attributes)
             base_params.delete(:image_list)
             base_params.delete(:uuid)
-            ::FeedingRecord.create(base_params)
+            date_record = params[:time].delete('-')
+            feeding_record = ::FeedingRecord.with_panda_record(params[:panda_id], date_record)&.last
+            if feeding_record.blank?
+              feeding_record = ::FeedingRecord.create(base_params)
+            else
+              feeding_record.update(base_params)
+            end
+            feeding_record
           end
 
-          def you_base_update(params)
+          def you_base_update(params, feeding_record)
             base_params = params
             base_params[:feeding_type] = 0
             base_params.delete(:drug_records_attributes)
