@@ -4,7 +4,7 @@ module Api
   module Entities
     module FeedingRecords
       class ShowData < Grape::Entity
-        expose :id, :weight, :panda_id, :remark, :feeding_type
+        expose :id, :weight, :panda_id, :remark, :feeding_type, :daily_add
         expose :created_at, format_with: :localtime
         expose :time, format_with: :only_date
         expose :panda do |instance, _|

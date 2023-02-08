@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_30_073839) do
+ActiveRecord::Schema.define(version: 2023_02_08_005655) do
 
   create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "panda_id"
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(version: 2023_01_30_073839) do
     t.string "remark", limit: 200, comment: "备注"
     t.integer "date_record", comment: "日期"
     t.integer "feeding_type", default: 0, comment: "类型 1 育幼 0 饲养"
+    t.string "daily_add", default: "", comment: "日增重"
     t.index ["panda_id"], name: "index_feeding_records_on_panda_id"
     t.index ["user_id"], name: "index_feeding_records_on_user_id"
   end

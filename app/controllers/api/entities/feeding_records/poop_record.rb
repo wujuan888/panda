@@ -5,6 +5,7 @@ module Api
     module FeedingRecords
       class PoopRecord < Grape::Entity
         expose :time, format_with: :only_date
+        expose :feeding_type
         expose :user_name do |instance, _|
           instance.user&.real_name
         end
