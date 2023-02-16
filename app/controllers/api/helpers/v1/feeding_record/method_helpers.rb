@@ -106,6 +106,7 @@ module Api
           end
 
           def eat_other_records_update(params, feeding_record, other_params)
+            logger.info "eat_other_records_update   0000000000  params  #{params}"
             old_ids = feeding_record.eat_other_records.pluck('id')
             now_ids = if params.blank?
                         []
@@ -117,9 +118,11 @@ module Api
               item[:panda_id] = feeding_record.panda_id
               items.push item
             end
+            logger.info "eat_other_records_update   0000000000  items  #{items}"
             delete_ids = old_ids - now_ids
             ::EatOtherRecord.with_id(delete_ids).destroy_all if delete_ids.present?
             other_params[:eat_other_records_attributes] = items if items.present?
+            logger.info "eat_other_records_update   0000000000  other_params  #{other_params}"
             other_params
           end
 
