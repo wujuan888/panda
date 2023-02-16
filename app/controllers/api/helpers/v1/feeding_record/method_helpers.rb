@@ -189,7 +189,7 @@ module Api
           end
 
           def base_create(params)
-            base_params = params
+            base_params = params.clone
             base_params[:feeding_type] = 0
             base_params[:user_id] = current_user.id
             base_params.delete(:eat_other_records_attributes)
@@ -209,7 +209,7 @@ module Api
           end
 
           def you_base_create(params)
-            base_params = params
+            base_params = params.clone
             base_params[:feeding_type] = 1
             base_params[:user_id] = current_user.id
             base_params.delete(:drug_records_attributes)
