@@ -25,6 +25,7 @@
 class DrugRecord < ApplicationRecord
   belongs_to :panda
   belongs_to :feeding_record
+  belongs_to :drug
 
   scope :with_panda, ->(panda_id) { where(panda_id: panda_id) }
 
