@@ -38,7 +38,7 @@ module Api
           Entities::Attachment.represent instance.attachments
         end
         expose :drug_list do |_|
-          Entities::Drug::Data.represent ::Drug.all
+          Entities::Drug::MaxData.represent ::Drug.all
         end
         expose :bamboo_list do |_|
           Entities::Bamboo::Data.represent ::Bamboo.all
