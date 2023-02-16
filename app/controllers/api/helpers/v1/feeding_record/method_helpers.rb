@@ -110,7 +110,7 @@ module Api
             now_ids = if params.blank?
                         []
                       else
-                        params.map { |x| x&.id }
+                        params.map { |x| x[:id] }
                       end
             items = []
             params&.each do |item|
@@ -128,7 +128,7 @@ module Api
             now_ids = if params.blank?
                         []
                       else
-                        params.map { |x| x&.id }
+                        params.map { |x| x[:id] }
                       end
             items = []
             params&.each do |item|
@@ -146,7 +146,7 @@ module Api
             now_ids = if params.blank?
                         []
                       else
-                        params.map { |x| x&.id }
+                        params.map { |x| x[:id] }
                       end
             items = []
             params&.each do |item|
@@ -164,7 +164,7 @@ module Api
             now_ids = if params.blank?
                         []
                       else
-                        params.map { |x| x&.id }
+                        params.map { |x| x[:id] }
                       end
             items = []
             params&.each do |item|
