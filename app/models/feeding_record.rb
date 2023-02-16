@@ -105,7 +105,9 @@ class FeedingRecord < ApplicationRecord
     return if pre_item.weight.blank? || weight.blank?
 
     add_w = weight - pre_item.weight
-    day_count = (time - pre_item.time)
+    day_count = (time.to_date - pre_item.time.to_date).to_i
+    daily_add = (add_w / day_count).round(2)
+    update_columns(daily_add: daily_add)
   end
 
   scope :with_panda, ->(panda_id) { where(panda_id: panda_id) }
