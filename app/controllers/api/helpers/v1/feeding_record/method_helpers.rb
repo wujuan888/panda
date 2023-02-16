@@ -8,17 +8,12 @@ module Api
           extend Grape::API::Helpers
 
           def create_param(params)
-            logger.info "create_param   0000000000  params  #{params}"
-            logger.info "create_param   0000000000  params panda_id  #{params[:eat_other_records_attributes]}"
-            logger.info "create_param   0000000001  params panda_id  #{params['eat_other_records_attributes']}"
             feeding_record = base_create(params)
             other_params = {}
             other_params = eat_other_records_update(params[:eat_other_records_attributes], feeding_record, other_params)
-            logger.info "create_param   0000000001  params other_params  #{other_params}"
             other_params = drug_records_update(params[:drug_records_attributes], feeding_record, other_params)
             other_params = train_records_update(params[:train_records_attributes], feeding_record, other_params)
             other_params = states_records_update(params[:states_records_attributes], feeding_record, other_params)
-            logger.info "create_param   0000000000  other_params  #{other_params}"
             feeding_record.update(other_params)
             image_list_create(params[:image_list], feeding_record)
             panda = feeding_record.panda
@@ -51,14 +46,10 @@ module Api
           end
 
           def you_create_param(params)
-            logger.info "you_create_param   0000000000  params  #{params}"
             feeding_record = you_base_create(params)
             other_params = {}
-            logger.info "you_create_param   11111111111"
             other_params = drug_records_update(params[:drug_records_attributes], feeding_record, other_params)
-            logger.info "you_create_param   22222222222"
             other_params = states_records_update(params[:states_records_attributes], feeding_record, other_params)
-            logger.info "you_create_param   3333333333v  #{other_params}"
             feeding_record.update(other_params)
             image_list_create(params[:image_list], feeding_record)
             panda = feeding_record.panda
@@ -106,7 +97,6 @@ module Api
           end
 
           def eat_other_records_update(params, feeding_record, other_params)
-            logger.info "eat_other_records_update   0000000000  params  #{params}"
             old_ids = feeding_record.eat_other_records.pluck('id')
             now_ids = if params.blank?
                         []
