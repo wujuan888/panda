@@ -109,9 +109,9 @@ class FeedingRecord < ApplicationRecord
   end
 
   scope :with_panda, ->(panda_id) { where(panda_id: panda_id) }
-  scope :with_panda_type, ->(panda_id, type) { where(panda_id: panda_id, feeding_type: feeding_type) }
+  scope :with_panda_type, ->(panda_id, type) { where(panda_id: panda_id, feeding_type: type) }
   scope :with_date_record, ->(date_record) { where(date_record: date_record) }
   scope :with_date_record_pre, ->(date_record) { where('date_record < ?', date_record)&.last }
-  scope :with_panda_record, ->(panda_id, date_record) { where(panda_id, date_record: date_record) }
+  scope :with_panda_record, ->(panda_id, date_record) { where(panda_id: panda_id, date_record: date_record) }
   scope :with_start_stop_date, ->(start, stop) { where('date_record >= ? and date_record <= ?', start, stop) }
 end
