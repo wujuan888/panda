@@ -9,6 +9,8 @@ module Api
 
           def create_param(params)
             logger.info "create_param   0000000000  params  #{params}"
+            logger.info "create_param   0000000000  params panda_id  #{params[:panda_id]}"
+            logger.info "create_param   0000000001  params panda_id  #{params['panda_id']}"
             feeding_record = base_create(params)
             other_params = {}
             other_params = eat_other_records_update(params[:eat_other_records_attributes], feeding_record, other_params)
