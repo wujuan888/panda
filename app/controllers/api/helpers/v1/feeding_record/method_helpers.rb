@@ -136,7 +136,7 @@ module Api
             items = []
             params&.each do |item|
               item[:panda_id] = feeding_record.panda_id
-              items.push item
+              items.push item if item[:drug_id].to_i.positive?
             end
             delete_ids = old_ids - now_ids
             ::DrugRecord.with_id(delete_ids).destroy_all if delete_ids.present?
