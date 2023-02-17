@@ -16,17 +16,11 @@ module Api
         expose :temperature_record do |instance, _|
           Entities::TemperatureRecord::Data.represent instance.temperature_record
         end
-        expose :drug_records do |instance, _|
-          Entities::DrugRecord::Data.represent instance.drug_records
-        end
         expose :poop_record do |instance, _|
           Entities::PoopRecord::Data.represent instance.poop_record
         end
         expose :com_evaluation_record do |instance, _|
           Entities::ComEvaluationRecord::Data.represent instance.com_evaluation_record
-        end
-        expose :states_records do |instance, _|
-          Entities::StatesRecord::MaxData.represent instance.states_records
         end
         expose :panda_states_records do |instance, option|
           Entities::StatesRecord::Data.represent ::StatesRecord.with_panda_current(option[:panda_id])
