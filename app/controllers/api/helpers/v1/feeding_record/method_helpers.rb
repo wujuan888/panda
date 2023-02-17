@@ -46,17 +46,12 @@ module Api
           end
 
           def you_create_param(params)
-            logger.info "you_create_param   0000000000  params  #{params}"
             feeding_record = you_base_create(params)
-            logger.info "you_create_param   0000000001  params  #{params}"
             other_params = {}
             other_params = drug_records_update(params[:drug_records_attributes], feeding_record, other_params)
-            logger.info "you_create_param   0000000002  params  #{params}"
             other_params = states_records_update(params[:states_records_attributes], feeding_record, other_params)
-            logger.info "you_create_param   0000000003  params  #{params}"
             feeding_record.update(other_params)
             image_list_create(params[:image_list], feeding_record)
-            logger.info "you_create_param   0000000004  params  #{params}"
             panda = feeding_record.panda
             old_states = panda.states
             states = panda.states_update
@@ -64,7 +59,6 @@ module Api
               content = { place_id: panda.place_id, gender: panda.gender, states: states, old_states: old_states }
               PandaWorker.perform_async(10, content)
             end
-            logger.info "you_create_param   0000000005  params  #{params}"
             panda
           end
 
@@ -221,7 +215,7 @@ module Api
           end
 
           def you_base_update(params, feeding_record)
-            base_params = params
+            base_params = params.clone
             base_params[:feeding_type] = 0
             base_params.delete(:drug_records_attributes)
             base_params.delete(:states_records_attributes)
@@ -231,7 +225,7 @@ module Api
           end
 
           def base_update(params, feeding_record)
-            base_params = params
+            base_params = params.clone
             base_params.delete(:eat_other_records_attributes)
             base_params.delete(:drug_records_attributes)
             base_params.delete(:train_records_attributes)

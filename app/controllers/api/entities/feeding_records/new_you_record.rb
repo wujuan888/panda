@@ -11,22 +11,19 @@ module Api
           Entities::Pandas::BasePanda.represent ::Panda.find(option[:panda_id])
         end
         expose :milk_record do |instance, _|
-          Entities::MilkRecord::Data.represent instance.milk_record
+          Entities::MilkRecord::Data.represent ::MilkRecord.new
         end
         expose :temperature_record do |instance, _|
-          Entities::TemperatureRecord::Data.represent instance.temperature_record
+          Entities::TemperatureRecord::Data.represent ::TemperatureRecord.new
         end
         expose :poop_record do |instance, _|
-          Entities::PoopRecord::Data.represent instance.poop_record
+          Entities::PoopRecord::Data.represent ::PoopRecord.new
         end
         expose :com_evaluation_record do |instance, _|
-          Entities::ComEvaluationRecord::Data.represent instance.com_evaluation_record
+          Entities::ComEvaluationRecord::Data.represent ::ComEvaluationRecord.new
         end
         expose :panda_states_records do |instance, option|
           Entities::StatesRecord::Data.represent ::StatesRecord.with_panda_current(option[:panda_id])
-        end
-        expose :image_list do |instance, _|
-          Entities::Attachment.represent instance.attachments
         end
         expose :drug_list do |_|
           Entities::Drug::MaxData.represent ::Drug.all
