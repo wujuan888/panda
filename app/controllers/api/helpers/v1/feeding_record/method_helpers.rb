@@ -46,6 +46,7 @@ module Api
           end
 
           def you_create_param(params)
+            logger.info "you_create_param   0000000000  params  #{params}"
             feeding_record = you_base_create(params)
             other_params = {}
             other_params = drug_records_update(params[:drug_records_attributes], feeding_record, other_params)
@@ -108,11 +109,9 @@ module Api
               item[:panda_id] = feeding_record.panda_id
               items.push item
             end
-            logger.info "eat_other_records_update   0000000000  items  #{items}"
             delete_ids = old_ids - now_ids
             ::EatOtherRecord.with_id(delete_ids).destroy_all if delete_ids.present?
             other_params[:eat_other_records_attributes] = items if items.present?
-            logger.info "eat_other_records_update   0000000000  other_params  #{other_params}"
             other_params
           end
 
