@@ -63,7 +63,7 @@ module Api
             optional :com_evaluation_record_attributes, type: Hash, desc: '综合评估' do
               use :com_evaluation_params
             end
-            optional :states_record_attributes, type: Array[JSON], desc: '特殊状态' do
+            optional :states_records_attributes, type: Array[JSON], desc: '特殊状态' do
               use :states_params
             end
           end
