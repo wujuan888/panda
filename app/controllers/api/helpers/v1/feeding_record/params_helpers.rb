@@ -166,7 +166,7 @@ module Api
               optional :id, type: Integer, desc: 'com_evaluation_record ID'
               use :com_evaluation_params
             end
-            optional :states_record_attributes, type: Array[JSON], desc: '特殊状态' do
+            optional :states_records_attributes, type: Array[JSON], desc: '特殊状态' do
               optional :id, type: Integer, desc: 'states_record ID'
               use :states_params
             end
@@ -190,7 +190,7 @@ module Api
             optional :com_evaluation_record_attributes, type: Hash, desc: '综合评估' do
               use :com_evaluation_params
             end
-            optional :states_record_attributes, type: Array[JSON], desc: '特殊状态' do
+            optional :states_records_attributes, type: Array[JSON], desc: '特殊状态' do
               use :states_params
             end
           end
@@ -218,7 +218,7 @@ module Api
               optional :id, type: Integer, desc: 'com_evaluation_record ID'
               use :com_evaluation_params
             end
-            optional :states_record_attributes, type: Array[JSON], desc: '特殊状态' do
+            optional :states_records_attributes, type: Array[JSON], desc: '特殊状态' do
               optional :id, type: Integer, desc: 'states_record ID'
               use :states_params
             end
