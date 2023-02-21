@@ -38,7 +38,7 @@ module Api
                          else
                            present ::FeedingRecord.new, with: Entities::FeedingRecords::NewRecord, panda_id: params[:panda_id]
                          end
-        present record: feeding_record, is_new: record.present?, response: success_resp
+        present record: feeding_record, is_new: record.blank?, response: success_resp
       end
 
       desc '新建熊猫的育幼记录'
@@ -53,7 +53,7 @@ module Api
                          else
                            present ::FeedingRecord.new, with: Entities::FeedingRecords::NewYouRecord, panda_id: params[:panda_id]
                          end
-        present record: feeding_record, is_new: record.present?, response: success_resp
+        present record: feeding_record, is_new: record.blank?, response: success_resp
       end
 
       desc '获取饲养物品'
