@@ -78,7 +78,7 @@ module Api
         use :update_params
       end
       post '/feeding_record/update' do
-        feeding_record = FeedingRecord.find(params[:id])
+        feeding_record = ::FeedingRecord.find(params[:id])
         update_param(params, feeding_record)
         present response: success_resp
       end
@@ -97,7 +97,7 @@ module Api
         use :you_update_params
       end
       post '/feeding_record/you_update' do
-        feeding_record = FeedingRecord.find(params[:id])
+        feeding_record = ::FeedingRecord.find(params[:id])
         you_update_param(params, feeding_record)
         present response: success_resp
       end
