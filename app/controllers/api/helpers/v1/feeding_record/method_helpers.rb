@@ -89,11 +89,11 @@ module Api
           end
 
           def image_list_update(image_list, feeding_record)
-            old_list = ::Attachment.with_item(feeding_record.id, item_type: 'FeedingRecord').pluck('url')
+            old_list = ::Attachment.with_item(feeding_record.id, 'FeedingRecord').pluck('url')
             image_list = [] if image_list.blank?
             delete_list = old_list - image_list
             new_list = image_list - old_list
-            ::Attachment.with_item(feeding_record.id, item_type: 'FeedingRecord', url: delete_list).delete_all if delete_list.present?
+            ::Attachment.with_item(feeding_record.id, 'FeedingRecord').where(url: delete_list).delete_all if delete_list.present?
             image_list_create(new_list, feeding_record)
           end
 
