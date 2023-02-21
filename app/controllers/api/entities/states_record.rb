@@ -14,6 +14,7 @@ module Api
 
       class MaxData < Grape::Entity
         expose :id
+        expose :item_id
         expose :district
         expose :institution
         expose :states_type
