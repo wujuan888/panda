@@ -5,6 +5,15 @@ module Api
     module Rooms
       class Data < Grape::Entity
         expose :id, :name, :place_id, :district_id, :dormitory_id
+        expose :place_name do |instance, _|
+          instance.place&.name
+        end
+        expose :district_name do |instance, _|
+          instance.district&.name
+        end
+        expose :dormitory_name do |instance, _|
+          instance.dormitory&.name
+        end
       end
 
       class MinData < Grape::Entity

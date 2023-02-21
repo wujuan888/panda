@@ -25,8 +25,8 @@ class Room < ApplicationRecord
 
 
   scope :with_delete, ->(is_delete) { where(is_delete: is_delete) }
-  scope :with_place, ->(id) { where(place_id: id) }
-  scope :with_district, ->(id) { where(district_id: id) }
-  scope :with_dormitory, ->(id) { where(dormitory_id: id) }
-  scope :with_name, ->(name) { where(name: name) }
+  scope :with_place, ->(id) { where(place_id: id, is_delete: false) }
+  scope :with_district, ->(id) { where(district_id: id, is_delete: false) }
+  scope :with_dormitory, ->(id) { where(dormitory_id: id, is_delete: false) }
+  scope :with_name, ->(name) { where(name: name, is_delete: false) }
 end

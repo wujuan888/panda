@@ -20,7 +20,7 @@ class District < ApplicationRecord
   has_many :dormitories
   has_many :pandas
 
-  scope :with_name, ->(name) { where(name: name) }
-  scope :with_place, ->(id) { where(place_id: id) }
+  scope :with_name, ->(name) { where(name: name, is_delete: false) }
+  scope :with_place, ->(id) { where(place_id: id, is_delete: false) }
   scope :with_delete, ->(is_delete) { where(is_delete: is_delete) }
 end

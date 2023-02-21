@@ -25,9 +25,9 @@ class Dormitory < ApplicationRecord
   has_many :rooms
   has_many :dormitory_records
 
-  scope :with_name, ->(name) { where(name: name) }
-  scope :with_district, ->(id) { where(district_id: id) }
-  scope :with_place, ->(id) { where(place_id: id) }
+  scope :with_name, ->(name) { where(name: name, is_delete: false) }
+  scope :with_district, ->(id) { where(district_id: id, is_delete: false) }
+  scope :with_place, ->(id) { where(place_id: id, is_delete: false) }
   scope :with_delete, ->(is_delete) { where(is_delete: is_delete) }
 
   after_commit :change_item
