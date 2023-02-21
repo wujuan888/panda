@@ -34,7 +34,8 @@ class StatesRecord < ApplicationRecord
   end
 
   def destroy_item
-    panda.update_columns(is_death: true) if states_type.zero? && name == '死亡'
+    item_record.update_columns(is_stop: false) if states_type == 1
+    panda.update_columns(is_death: false) if states_type.zero? && name == '死亡'
   end
 
   scope :with_current, -> { where(is_stop: false, states_type: 0) }
