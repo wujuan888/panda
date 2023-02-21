@@ -8,6 +8,7 @@ module Api
         expose :district
         expose :institution
         expose :states_type
+        expose :is_stop
         expose :name
         expose :date, format_with: :only_date
       end
@@ -18,6 +19,7 @@ module Api
         expose :district
         expose :institution
         expose :states_type
+        expose :is_stop
         expose :name
         expose :date, format_with: :only_date
         expose :item, if: ->(instance, _) { instance.states_type == 1 } do |instance, _|
