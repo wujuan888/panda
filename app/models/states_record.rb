@@ -29,7 +29,7 @@ class StatesRecord < ApplicationRecord
   after_destroy :destroy_item
 
   def create_item
-    item_record.update_columns(item_id: id, is_stop: false) if states_type == 1
+    item_record.update_columns(item_id: id, is_stop: true) if states_type == 1
     panda.update_columns(is_death: true) if states_type.zero? && name == '死亡'
   end
 
