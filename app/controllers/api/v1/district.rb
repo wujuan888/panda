@@ -26,7 +26,7 @@ module Api
                         else
                           ::District.with_place(params[:place_id]).with_delete(false)
                         end
-        present districts: (present district_list, with: Entities::Districts::DistrictList),
+        present districts: (present district_list, with: Entities::Districts::MaxDistrict),
                 response: success_resp
       end
 
