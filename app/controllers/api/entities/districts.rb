@@ -20,7 +20,7 @@ module Api
           instance.place.name
         end
         expose :dormitory_list do |instance, _|
-          Entities::Dormitories::Room.represent instance.dormitories
+          Entities::Dormitories::Room.represent instance.dormitories.with_delete(false)
         end
       end
 
@@ -30,7 +30,7 @@ module Api
           instance.place&.name
         end
         expose :dormitory_list do |instance, _|
-          Entities::Dormitories::Room.represent instance.dormitories
+          Entities::Dormitories::Room.represent instance.dormitories.with_delete(false)
         end
       end
 

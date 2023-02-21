@@ -12,7 +12,7 @@ module Api
           instance.district.name
         end
         expose :room_list do |instance, _|
-          Entities::Rooms::Data.represent instance.rooms
+          Entities::Rooms::Data.represent instance.rooms.with_delete(false)
         end
       end
     end

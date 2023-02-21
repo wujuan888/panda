@@ -17,7 +17,7 @@ module Api
           if instance.new_record?
             []
           else
-            Entities::Rooms::MinData.represent ::Room.with_dormitory(instance.id)
+            Entities::Rooms::MinData.represent ::Room.with_dormitory(instance.id).with_delete(false)
           end
         end
       end
