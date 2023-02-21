@@ -63,7 +63,6 @@ module Api
           end
 
           def you_update_param(params, feeding_record)
-            logger.info "you_update_param    #{params}"
             you_base_update(params, feeding_record)
             other_params = {}
             other_params = drug_records_update(params[:drug_records_attributes], feeding_record, other_params)

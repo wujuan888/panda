@@ -22,7 +22,9 @@ module Api
         use :uuid_search_params
       end
       get '/panda/list' do
+        logger.info " params 1  #{params}"
         params[:place_id_eq] = '' if params[:place_id_eq].to_i.zero?
+        logger.info " params 2  #{params}"
         pandas = ::Panda.with_not_delete.ransack(params.except(:uuid)).result
 
         present pandas: (present pandas, with: Entities::Pandas::MinPanda), response: success_resp
