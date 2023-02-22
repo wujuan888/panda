@@ -11,6 +11,9 @@ module Api
         expose :position do |instance, _|
           "#{instance.place&.name}-#{instance.district&.name}"
         end
+        expose :panda_count do |instance, _|
+          instance.pandas.count
+        end
         expose :panda_names do |instance, _|
           instance.pandas.pluck('name')&.join('、')
         end
