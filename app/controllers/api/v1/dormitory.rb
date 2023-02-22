@@ -50,7 +50,7 @@ module Api
       post '/dormitory/panda_transfer' do
         panda = ::Panda.find(params[:panda_id])
         old_place_id = panda.place_id
-        panda.update(params.except(:panda_id))
+        panda.update(params.except(:panda_id, :uuid))
         if old_place_id != params[:place_id].to_i
           content = { place_id: panda.place_id, old_place_id: old_place_id, gender: panda.gender, states: panda.states }
           PandaWorker.perform_async(3, content)
