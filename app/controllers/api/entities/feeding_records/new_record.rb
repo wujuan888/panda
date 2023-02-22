@@ -29,7 +29,7 @@ module Api
           Entities::ComEvaluationRecord::Data.represent ::ComEvaluationRecord.new
         end
         expose :panda_states_records do |instance, option|
-          Entities::StatesRecord::Data.represent ::StatesRecord.with_panda_current(option[:panda_id])
+          Entities::StatesRecord::Data.represent ::StatesRecord.with_panda_current(option[:panda_id]).with_date_now(option[:date_record])
         end
         expose :drug_list do |_|
           Entities::Drug::MaxData.represent ::Drug.all

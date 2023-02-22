@@ -46,7 +46,8 @@ module Api
           Entities::StatesRecord::MaxData.represent instance.states_records
         end
         expose :panda_states_records do |instance, _|
-          Entities::StatesRecord::Data.represent ::StatesRecord.with_panda_current(instance.panda_id).with_not_feed(instance.id)
+          Entities::StatesRecord::Data.represent ::StatesRecord.with_panda_current(instance.panda_id)\
+                                                               .with_not_feed(instance.id).with_date_now(instance.date_record)
         end
         expose :image_list do |instance, _|
           Entities::Attachment.represent instance.attachments
