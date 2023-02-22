@@ -69,7 +69,7 @@ module Api
         data = { place_id: dormitory.place_id, district_id: dormitory.district_id,
                  dormitory_id: dormitory.id }
         data[:room_id] = params[:room_id] if params[:room_id].present?
-        pandas.update_columns(data)
+        pandas.update_all(data)
         PandaWorker.perform_async(2, content)
 
         present response: success_resp
