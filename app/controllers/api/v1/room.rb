@@ -37,11 +37,11 @@ module Api
 
       desc '新建房号'
       params do
-        use :uuid_district_params
+        use :uuid_dormitory_params
       end
       get '/room/new' do
-        room = ::Room.new
-        present room: (present room, with: Entities::Rooms::New, district_id: params[:district_id]),
+        dormitory = ::Dormitory.find(params[:dormitory_id])
+        present dormitory: (present dormitory, with: Entities::Dormitories::NewRoom),
                 response: success_resp
       end
 

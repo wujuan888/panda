@@ -3,7 +3,8 @@
 module Api
   module Entities
     module Dormitories
-      class Dormitory < Grape::Entity
+      class NewRoom < Grape::Entity
+        expose :place_id, :district_id, :id
         expose :place_list do |instance, _|
           Entities::Places::Place.represent ::Place.all
         end
@@ -12,13 +13,6 @@ module Api
         end
         expose :dormitory_list do |instance, _|
           Entities::Dormitories::Data.represent ::Dormitory.with_district(instance.district_id).with_delete(false)
-        end
-        expose :room_list do |instance, _|
-          if instance.new_record?
-            []
-          else
-            Entities::Rooms::MinData.represent ::Room.with_dormitory(instance.id).with_delete(false)
-          end
         end
       end
     end
