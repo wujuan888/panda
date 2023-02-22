@@ -89,7 +89,7 @@ module Api
         use :uuid_dormitory_params
       end
       get '/panda/dormitory_list' do
-        pandas = ::Panda.with_not_delete.with_not_dormitory(params[:dormitory_id])
+        pandas = ::Panda.with_not_delete.with_dormitory(params[:dormitory_id])
 
         present pandas: (present pandas, with: Entities::Pandas::Room), response: success_resp
       end
@@ -99,7 +99,7 @@ module Api
         use :uuid_dormitory_params
       end
       get '/panda/not_dormitory_list' do
-        pandas = ::Panda.with_not_delete.with_dormitory(params[:dormitory_id])
+        pandas = ::Panda.with_not_delete.with_not_dormitory(params[:dormitory_id])
 
         present pandas: (present pandas, with: Entities::Pandas::Room), response: success_resp
       end
