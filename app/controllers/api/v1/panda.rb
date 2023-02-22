@@ -84,7 +84,17 @@ module Api
         present pandas: (present pandas, with: Entities::Pandas::MinPanda), response: success_resp
       end
 
-      desc '兽舍里的雌性列表'
+      desc '兽舍里的熊猫列表'
+      params do
+        use :uuid_dormitory_params
+      end
+      get '/panda/dormitory_list' do
+        pandas = ::Panda.with_not_delete.with_not_dormitory(params[:dormitory_id])
+
+        present pandas: (present pandas, with: Entities::Pandas::Room), response: success_resp
+      end
+
+      desc '不在这个兽舍里的熊猫列表'
       params do
         use :uuid_dormitory_params
       end

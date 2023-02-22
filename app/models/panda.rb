@@ -103,6 +103,7 @@ class Panda < ApplicationRecord
   end
 
   scope :with_dormitory, ->(dormitory) { where(dormitory_id: dormitory) }
+  scope :with_not_dormitory, ->(dormitory) { where.not(dormitory_id: dormitory) }
   scope :with_gender, ->(gender) { where(gender: gender) }
   scope :with_not, ->(id) { where('id != ?', id) }
   scope :with_name, ->(name) { where(name: name) }
