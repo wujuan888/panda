@@ -5,6 +5,9 @@ module Api
     module Dormitories
       class MaxDormitory < Grape::Entity
         expose :id, :name, :place_id, :district_id, :panda_count
+        expose :place_name do |instance, _|
+          instance.place&.name
+        end
         expose :position do |instance, _|
           "#{instance.place&.name}-#{instance.district&.name}"
         end
