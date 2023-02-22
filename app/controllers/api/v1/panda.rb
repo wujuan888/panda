@@ -98,7 +98,7 @@ module Api
       params do
         use :uuid_dormitory_params
       end
-      get '/panda/dormitory_list' do
+      get '/panda/not_dormitory_list' do
         pandas = ::Panda.with_not_delete.with_dormitory(params[:dormitory_id])
 
         present pandas: (present pandas, with: Entities::Pandas::Room), response: success_resp
