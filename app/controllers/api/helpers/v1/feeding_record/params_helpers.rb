@@ -91,7 +91,7 @@ module Api
 
           params :train_params do
             optional :name, type: String, desc: '名称'
-            optional :result, type: String, desc: '结果'
+            optional :result, type: Integer, desc: '结果'
           end
 
           params :drug_params do

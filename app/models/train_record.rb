@@ -19,4 +19,8 @@ class TrainRecord < ApplicationRecord
   belongs_to :panda
   belongs_to :feeding_record
   scope :with_id, ->(ids) { where(id: ids) }
+
+  def self.result_name
+    %w[未习得 习得]
+  end
 end
