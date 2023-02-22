@@ -4,6 +4,7 @@
 #
 #  id                             :bigint           not null, primary key
 #  date(开始或结束日期)           :datetime
+#  date_record                    :integer
 #  district(地区)                 :string(100)
 #  institution(机构)              :string(100)
 #  is_stop(是否结束)              :boolean          default(FALSE)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_08_005655) do
+ActiveRecord::Schema.define(version: 2023_02_22_030333) do
 
   create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "panda_id"
@@ -356,6 +356,7 @@ ActiveRecord::Schema.define(version: 2023_02_08_005655) do
     t.integer "item_id", comment: "特殊状态开始或结束id"
     t.integer "states_type", comment: "0: 开始  1： 结束"
     t.datetime "date", comment: "开始或结束日期"
+    t.integer "date_record"
     t.index ["feeding_record_id"], name: "index_states_records_on_feeding_record_id"
     t.index ["panda_id"], name: "index_states_records_on_panda_id"
   end

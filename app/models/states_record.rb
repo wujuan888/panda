@@ -4,6 +4,7 @@
 #
 #  id                             :bigint           not null, primary key
 #  date(开始或结束日期)           :datetime
+#  date_record                    :integer
 #  district(地区)                 :string(100)
 #  institution(机构)              :string(100)
 #  is_stop(是否结束)              :boolean          default(FALSE)
@@ -29,6 +30,7 @@ class StatesRecord < ApplicationRecord
   after_destroy :destroy_item
 
   def create_item
+    update_columns(date_record: feeding_record.date_record)
     item_record.update_columns(item_id: id, is_stop: true) if states_type == 1
     panda.update_columns(is_death: true) if states_type.zero? && name == '死亡'
   end
@@ -42,4 +44,5 @@ class StatesRecord < ApplicationRecord
   scope :with_panda_current, ->(panda_id) { where(panda_id: panda_id, is_stop: false, states_type: 0) }
   scope :with_id, ->(ids) { where(id: ids) }
   scope :with_not_feed, ->(id) { where.not(feeding_record_id: id) }
+  scope :with_date_now, ->(date) { where('date_record < ?', date.strftime('%Y%m%d').to_i) }
 end
