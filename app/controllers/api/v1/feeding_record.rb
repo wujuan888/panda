@@ -36,7 +36,7 @@ module Api
         feeding_record = if record.present?
                            present record, with: Entities::FeedingRecords::MaxFeedingRecord
                          else
-                           present ::FeedingRecord.new, with: Entities::FeedingRecords::NewRecord, panda_id: params[:panda_id], date_record: date_record
+                           present ::FeedingRecord.new, with: Entities::FeedingRecords::NewRecord, panda_id: params[:panda_id], date_record: params[:date]
                          end
         present record: feeding_record, is_new: record.blank?, response: success_resp
       end
@@ -51,7 +51,7 @@ module Api
         feeding_record = if record.present?
                            present record, with: Entities::FeedingRecords::MaxYouRecord
                          else
-                           present ::FeedingRecord.new, with: Entities::FeedingRecords::NewYouRecord, panda_id: params[:panda_id], date_record: date_record
+                           present ::FeedingRecord.new, with: Entities::FeedingRecords::NewYouRecord, panda_id: params[:panda_id], date_record: params[:date]
                          end
         present record: feeding_record, is_new: record.blank?, response: success_resp
       end
