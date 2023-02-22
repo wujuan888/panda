@@ -41,7 +41,7 @@ module Api
       end
       get '/room/new' do
         room = ::Room.new
-        present room: (present room, with: Entities::Rooms::New, place_id: params[:place_id], district_id: params[:district_id]),
+        present room: (present room, with: Entities::Rooms::New, district_id: params[:district_id]),
                 response: success_resp
       end
 

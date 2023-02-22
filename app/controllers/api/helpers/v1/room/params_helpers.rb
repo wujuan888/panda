@@ -9,7 +9,6 @@ module Api
 
           params :uuid_district_params do
             requires :uuid, type: String, desc: '用户UUID'
-            requires :place_id, type: Integer, desc: '场所ID（基地、卧龙。。。）'
             requires :district_id, type: Integer, desc: '区域ID'
           end
 
