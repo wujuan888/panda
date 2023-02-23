@@ -21,7 +21,7 @@ module Api
           instance.mother&.name
         end
         expose :list do |instance, _|
-          Entities::FeedingRecords::ComEvaluationRecord.represent instance.feeding_records
+          Entities::FeedingRecords::ComEvaluationRecord.represent instance.feeding_records.order('time desc')
         end
       end
     end
