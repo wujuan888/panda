@@ -4,6 +4,7 @@ module Api
   module Entities
     module FeedingRecords
       class DrugRecord < Grape::Entity
+        expose :id
         expose :time, format_with: :only_date
         expose :user_name do |instance, _|
           instance.user&.real_name

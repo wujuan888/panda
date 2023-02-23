@@ -26,7 +26,7 @@ module Api
         present panda: (present panda, with: Entities::Pandas::FeedingRecord), response: success_resp
       end
 
-      desc '获取熊猫某日的饲养记录'
+      desc '获取熊猫某日的饲养记录-用于新建与编辑'
       params do
         use :uuid_time_params
       end
@@ -41,7 +41,7 @@ module Api
         present record: feeding_record, is_new: record.blank?, response: success_resp
       end
 
-      desc '新建熊猫的育幼记录'
+      desc '新建熊猫的育幼记录-用于新建与编辑'
       params do
         use :uuid_time_params
       end
