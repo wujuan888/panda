@@ -9,7 +9,7 @@ module Api
           "#{instance.place&.name}-#{instance.district&.name}"
         end
         expose :panda_list do |instance, _|
-          Entities::Pandas::Room.represent instance.pandas.count
+          Entities::Pandas::Room.represent instance.pandas
         end
         expose :room_list do |instance, _|
           Entities::Rooms::Data.represent instance.rooms.with_delete(false)
