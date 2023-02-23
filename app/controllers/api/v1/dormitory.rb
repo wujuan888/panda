@@ -31,7 +31,7 @@ module Api
 
       desc '兽舍入住详情'
       params do
-        use :uuid_id_params
+        use :uuid_place_params
       end
       get '/dormitory/panda_list' do
         dormitory_list = if params[:place_id].to_i.zero?
@@ -40,6 +40,16 @@ module Api
                            ::Dormitory.with_place(params[:place_id]).with_delete(false)
                          end
         present dormitories: (present dormitory_list, with: Entities::Dormitories::MaxDormitory),
+                response: success_resp
+      end
+
+      desc '兽舍入住详情'
+      params do
+        use :uuid_id_params
+      end
+      get '/dormitory/panda_room_info' do
+        dormitory = ::Dormitory.find(params[:id])
+        present dormitory: (present dormitory, with: Entities::Dormitories::PandaRoomInfo),
                 response: success_resp
       end
 
