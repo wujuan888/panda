@@ -38,7 +38,7 @@ module Api
           Entities::MilkRecord::Data.represent instance.milk_record
         end
         expose :temperature_record, if: ->(instance, _) { instance.feeding_type == 1 } do |instance, _|
-          Entities::TemperatureRecord.represent instance.temperature_record
+          Entities::TemperatureRecord::Data.represent instance.temperature_record
         end
         expose :poop_record do |instance, _|
           Entities::PoopRecord::Data.represent instance.poop_record
