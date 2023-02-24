@@ -47,7 +47,10 @@ module Api
           Entities::ComEvaluationRecord::Data.represent instance.com_evaluation_record
         end
         expose :states_records do |instance, _|
-          Entities::StatesRecord::Data.represent instance.states_records
+          {
+            start: instance.states_records&.with_states_type(0)&.pluck('name')&.join('、').to_s,
+            stop: instance.states_records&.with_states_type(1)&.pluck('name')&.join('、').to_s,
+          }
         end
         expose :image_list do |instance, _|
           Entities::Attachment.represent instance.attachments

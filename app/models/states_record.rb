@@ -43,6 +43,7 @@ class StatesRecord < ApplicationRecord
   scope :with_current, -> { where(is_stop: false, states_type: 0) }
   scope :with_panda_current, ->(panda_id) { where(panda_id: panda_id, is_stop: false, states_type: 0) }
   scope :with_id, ->(ids) { where(id: ids) }
+  scope :with_states_type, ->(states_type) { where(states_type: states_type) }
   scope :with_not_feed, ->(id) { where.not(feeding_record_id: id) }
   scope :with_date_now, ->(date_record) { where('date_record < ?', date_record) }
 end
