@@ -57,7 +57,11 @@ module Api
         use :uuid_search_params
       end
       get '/panda/live_list' do
-        pandas = ::Panda.with_live.ransack(params.except(:uuid)).result
+        pandas = if params[:states_cont_all] == '租赁'
+                   ::Panda.with_live.with_zu_jie.ransack(params.except(:uuid)).result
+                 else
+                   ::Panda.with_live.with_zu_jie.ransack(params.except(:uuid)).result
+                 end
 
         present pandas: (present pandas, with: Entities::Pandas::MinPanda), response: success_resp
       end

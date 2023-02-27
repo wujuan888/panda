@@ -35,65 +35,36 @@ class PandaWorker
   #          states
   def perform(type, content)
     puts "PandaWorker::perform type:#{type} content:#{content}"
+
     case type
     when 0
-      add_panda(0, content)
-      add_panda(content['place_id'], content)
+      panda_count_zero?
+      panda_count(content['place_id'].to_i) if content['place_id'].to_i.positive?
     when 1
-      record = PandaRecord.with_place(0).last
-      record = PandaRecord.create(place_id: 0) if record.blank?
-      change_gender(record, content)
-      if content['place_id'] == content['old_place_id']
-        if content['place_id'].to_i.positive?
-          record = place_item(content['place_id'])
-          change_gender(record, content)
-        end
-      else
-        if content['place_id'].to_i.positive?
-          record = place_item(content['place_id'])
-          add_all(record, content['states'], content['gender'])
-        end
-        if content['old_place_id'].to_i.positive?
-          old_record = place_item(content['old_place_id'])
-          sub_all(old_record, content['states'], content['old_gender'])
-        end
+      panda_count_zero?
+      panda_count(content['place_id'].to_i) if content['place_id'].to_i.positive?
+      if content['place_id'] != content['old_place_id']
+        panda_count(content['old_place_id'].to_i) if content['old_place_id'].to_i.positive?
       end
+
     when 2
-      record = place_item(content['place_id'])
+      panda_count_zero?
+      panda_count(content['place_id'].to_i) if content['place_id'].to_i.positive?
       content['old'].each do |item|
         next if item[0].to_i == content['place_id'].to_i
 
-        add_all(record, item[1], item[2])
-        if item[0].to_i.positive?
-          old_record = place_item(item[0])
-          sub_all(old_record, item[1], item[2])
-        end
+        panda_count(item['0'].to_i) if item['0'].to_i.positive?
       end
     when 3
-      if content['old_place_id'].to_i != content['place_id'].to_i
-        if content['place_id'].to_i.positive?
-          record = place_item(content['place_id'])
-          add_all(record, content['states'], content['gender'])
-        end
-        if content['old_place_id'].to_i.positive?
-          old_record = place_item(content['old_place_id'])
-          sub_all(old_record, content['states'], content['gender'])
-        end
-      end
+      panda_count_zero?
+      panda_count(content['place_id'].to_i) if content['place_id'].to_i.positive?
+      panda_count(content['old_place_id'].to_i) if content['old_place_id'].to_i.positive?
     when 10
-      if content['place_id'].to_i.positive?
-        record = place_item(content['place_id'])
-        change_states(record, content['states'], content['old_states'], content['gender'])
-      end
-      record = place_item(0)
-      change_states(record, content['states'], content['old_states'], content['gender'])
+      panda_count_zero?
+      panda_count(content['place_id'].to_i) if content['place_id'].to_i.positive?
     when 40
-      if content['place_id'].to_i.positive?
-        record = place_item(content['place_id'])
-        sub_all(record, content['states'], content['gender'])
-      end
-      record = place_item(0)
-      sub_all(record, content['states'], content['gender'])
+      panda_count_zero?
+      panda_count(content['place_id'].to_i) if content['place_id'].to_i.positive?
     end
     puts 'PandaWorker::perform ok'
   rescue StandardError => e
@@ -109,6 +80,7 @@ class PandaWorker
   def add_panda(place_id, content)
     record = PandaRecord.with_place(place_id).last
     record = PandaRecord.create(place_id: place_id) if record.blank?
+
     record.with_lock do
       record.count += 1
       if content['gender'].to_i == 1
@@ -117,6 +89,66 @@ class PandaWorker
         record.m_count += 1
       end
       record.save!
+    end
+  end
+
+  def panda_count_zero?
+    record = PandaRecord.with_place(0).last
+    record = PandaRecord.create(place_id: 0) if record.blank?
+    all = Panda.with_live.pluck('gender', 'states')
+    data = { count: 0, lease_count: 0, f_count: 0, m_count: 0, pei_zhong_count: 0, fa_qin_count: 0,
+             dai_zai_count: 0, ill_count: 0 }
+    all.each do |item|
+      states = item[1].to_s
+      if states.include? '租赁'
+        data[:lease_count] += 1
+      else
+        data[:count] += 1
+        if item[0].to_i == 1
+          data[:f_count] += 1
+        else
+          data[:m_count] += 1
+        end
+        data[:pei_zhong_count] += 1 if states.include? '配种'
+        data[:fa_qin_count] += 1 if states.include? '发情'
+        data[:dai_zai_count] += 1 if states.include? '带仔'
+        data[:ill_count] += 1 if states.include? '生病'
+      end
+    end
+    record.with_lock do
+      record.update(data)
+    end
+  end
+
+  def panda_count(place_id)
+    record = PandaRecord.with_place(place_id).last
+    record = PandaRecord.create(place_id: place_id) if record.blank?
+    all = if place_id.zero?
+            Panda.with_live.pluck('gender', 'states')
+          else
+            Panda.with_place(place_id).with_live.pluck('gender', 'states')
+          end
+    data = { count: 0, lease_count: 0, f_count: 0, m_count: 0, pei_zhong_count: 0, fa_qin_count: 0,
+             dai_zai_count: 0, ill_count: 0 }
+    all.each do |item|
+      states = item[1].to_s
+      if states.include? '租赁'
+        data[:lease_count] += 1
+      else
+        data[:count] += 1
+        if item[0].to_i == 1
+          data[:f_count] += 1
+        else
+          data[:m_count] += 1
+        end
+        data[:pei_zhong_count] += 1 if states.include? '配种'
+        data[:fa_qin_count] += 1 if states.include? '发情'
+        data[:dai_zai_count] += 1 if states.include? '带仔'
+        data[:ill_count] += 1 if states.include? '生病'
+      end
+    end
+    record.with_lock do
+      record.update(data)
     end
   end
 
@@ -131,17 +163,20 @@ class PandaWorker
   # #  pregnant_count(怀孕数量)  :
   def sub_all(record, states, gender)
     record.with_lock do
-      record.count -= 1
-      if gender.to_i == 1
-        record.f_count -= 1
+      if states.include? '租赁'
+        record.lease_count -= 1
       else
-        record.m_count -= 1
+        record.count -= 1
+        if gender.to_i == 1
+          record.f_count -= 1
+        else
+          record.m_count -= 1
+        end
+        record.pei_zhong_count -= 1 if states.include? '配种'
+        record.fa_qin_count -= 1 if states.include? '发情'
+        record.dai_zai_count -= 1 if states.include? '带仔'
+        record.ill_count -= 1 if states.include? '生病'
       end
-      record.lease_count -= 1 if states.include? '租赁'
-      record.pei_zhong_count -= 1 if states.include? '配种'
-      record.fa_qin_count -= 1 if states.include? '发情'
-      record.dai_zai_count -= 1 if states.include? '带仔'
-      record.ill_count -= 1 if states.include? '生病'
       record.save!
     end
   end
@@ -180,17 +215,21 @@ class PandaWorker
 
   def add_all(record, states, gender)
     record.with_lock do
-      record.count += 1
-      if gender.to_i == 1
-        record.f_count += 1
+      if states.include? '租赁'
+        record.lease_count += 1
       else
-        record.m_count += 1
+        record.count += 1
+        if gender.to_i == 1
+          record.f_count += 1
+        else
+          record.m_count += 1
+        end
+
+        record.pei_zhong_count += 1 if states.include? '配种'
+        record.fa_qin_count += 1 if states.include? '发情'
+        record.dai_zai_count += 1 if states.include? '带仔'
+        record.ill_count += 1 if states.include? '生病'
       end
-      record.lease_count += 1 if states.include? '租赁'
-      record.pei_zhong_count += 1 if states.include? '配种'
-      record.fa_qin_count += 1 if states.include? '发情'
-      record.dai_zai_count += 1 if states.include? '带仔'
-      record.ill_count += 1 if states.include? '生病'
       record.save!
     end
   end
