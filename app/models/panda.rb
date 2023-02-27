@@ -110,7 +110,7 @@ class Panda < ApplicationRecord
   scope :with_not_delete, -> { where(is_delete: false) }
   scope :with_live, -> { where(is_death: false) }
   scope :with_place, ->(place_id) { where(place_id: place_id) }
-  scope :with_zu_jie, -> { where('states like ?', '%租借%') }
-  scope :with_not_zu_jie, -> { where.not('states like ?', '%租借%') }
+  scope :with_zu_jie, -> { where('states regexp ?', '租赁') }
+  scope :with_not_zu_jie, -> { where.not('states regexp ?', '租赁') }
 
 end
