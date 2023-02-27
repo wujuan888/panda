@@ -46,8 +46,12 @@ module Api
                       '在线'
                     end
         params[:place_id_eq] = '' if params[:place_id_eq].to_i.zero?
-        pandas = ::Panda.with_not_delete.with_live.ransack(params.except(:uuid)).result
 
+        pandas = if params[:states_cont_all] == '租赁'
+                   ::Panda.with_not_delete.with_live.with_zu_jie.ransack(params.except(:uuid)).result
+                 else
+                   ::Panda.with_not_delete.with_live.with_not_zu_jie.ransack(params.except(:uuid)).result
+                 end
         present pandas: (present pandas, with: Entities::Pandas::MinPanda),
                 place_name: place_name, type_name: type_name, response: success_resp
       end
@@ -57,11 +61,7 @@ module Api
         use :uuid_search_params
       end
       get '/panda/live_list' do
-        pandas = if params[:states_cont_all] == '租赁'
-                   ::Panda.with_live.with_zu_jie.ransack(params.except(:uuid)).result
-                 else
-                   ::Panda.with_live.with_not_zu_jie.ransack(params.except(:uuid)).result
-                 end
+        pandas = ::Panda.with_not_delete.with_live.ransack(params.except(:uuid)).result
 
         present pandas: (present pandas, with: Entities::Pandas::MinPanda), response: success_resp
       end
