@@ -60,7 +60,7 @@ module Api
         pandas = if params[:states_cont_all] == '租赁'
                    ::Panda.with_live.with_zu_jie.ransack(params.except(:uuid)).result
                  else
-                   ::Panda.with_live.with_zu_jie.ransack(params.except(:uuid)).result
+                   ::Panda.with_live.with_not_zu_jie.ransack(params.except(:uuid)).result
                  end
 
         present pandas: (present pandas, with: Entities::Pandas::MinPanda), response: success_resp
