@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_22_030333) do
+ActiveRecord::Schema.define(version: 2023_02_27_130709) do
 
   create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "panda_id"
@@ -265,7 +265,7 @@ ActiveRecord::Schema.define(version: 2023_02_22_030333) do
     t.integer "year", default: 0
     t.boolean "is_delete", default: false
     t.boolean "is_death", default: false, comment: "是否死亡"
-    t.string "states", limit: 100, comment: "特殊状态"
+    t.string "states", limit: 50, default: "", comment: "特殊状态"
     t.integer "place_id"
     t.integer "district_id"
     t.integer "room_id"
