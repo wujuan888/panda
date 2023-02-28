@@ -23,6 +23,7 @@ module Api
       end
       get '/panda/list' do
         params[:place_id_eq] = '' if params[:place_id_eq].to_i.zero?
+        params[:states_cont_all] = '' if params[:states_cont_all] == '全部'
         pandas = ::Panda.with_not_delete.ransack(params.except(:uuid)).result
 
         present pandas: (present pandas, with: Entities::Pandas::MinPanda), response: success_resp
